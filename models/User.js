@@ -49,6 +49,27 @@ User.init(
                 //4 chars long
                 len: [4]
             }
+        },
+        points: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+            defaultValue: 0,
+            references: {
+                model: 'point',
+                key: 'id'
+            }
+        },
+        group_id: {
+            type: DataTypes.INTEGER,
+            references: { //this is how we show what group ur in
+                model: 'group', //the other model we reference
+                key: 'id' //the primary key from the other model
+            }
+        },
+        admin: {
+            type: DataTypes.BOOLEAN,
+            allowNull: false,
+            defaultValue: false
         }
     },
     {

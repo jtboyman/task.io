@@ -26,11 +26,11 @@ Comment.init(
               key: 'id'
           }
       },
-      post_id: {
+      group_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
-          model: 'post',
+          model: 'group',
           key: 'id'
         }
       }
