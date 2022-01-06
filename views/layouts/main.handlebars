@@ -1,27 +1,38 @@
+<!DOCTYPE html>
 <html lang="en">
 
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Task.io</title>
-    <link rel="stylesheet" href="/stylesheets/style.css" />
-  </head>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Just Tech News</title>
+  <link rel="stylesheet" href="/stylesheets/style.css">
+</head>
 
-  <body>
-    <div class="wrapper">
-      <header>
-        <h1>
-          <a href="/">Task.io</a>
-        </h1>
-      </header>
-      <main>
-        {{{body}}}
-      </main>
-      <footer>
-        Thanks for Tasking!
-      </footer>
-    </div>
-
-  </body>
+<body>
+  <div class="wrapper">
+    <header>
+      <h1>
+        <a href="/">Just Tech News</a>
+      </h1>
+    <nav>
+        {{#if loggedIn}}
+        <a href="/dashboard">dashboard</a>
+        <button id="logout" class="btn-no-style">logout</button>
+        {{else}}
+        <a href="/login">login</a>
+        {{/if}}
+    </nav>
+    </header>
+    <main>
+      {{{ body }}} <!--placeholder for smaller template that will come later-->
+    </main>
+    <footer>
+      Thanks for visiting!
+    </footer>
+  </div>
+  {{#if loggedIn}}
+  <script src="/javascript/logout.js"></script>
+  {{/if}}
+</body>
 
 </html>

@@ -1,1 +1,7 @@
-<div>You are on the homepage</div>
+<ol class="post-list">
+  {{#each posts as |post|}} <!--each loops through the array from home-routes, we can assign the variable for clarity-->
+  <li>
+      {{> post-info post}} <!-- partial-->
+  </li>
+  {{/each}}
+</ol>

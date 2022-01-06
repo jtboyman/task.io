@@ -1,0 +1,18 @@
+    <article class="post">
+      <div class="title">
+        <a href="{{post_url}}" target="_blank">{{title}}</a>
+        <span>({{format_url post_url}})</span>
+      </div>
+      <div class="meta">
+        {{vote_count}} {{format_plural "point" vote_count}} by {{user.username}} on
+        {{format_date created_at}}
+        |
+        <a href="/post/{{id}}">{{comments.length}} {{format_plural "comment" comments.length}}</a>
+      </div>
+    </article>
+
+    <!--we changed things from post.<property of post> format so that this
+        file knows what it is
+        
+        there are also helpers being used here, use spaces to pass parameters
+        into functions-->
