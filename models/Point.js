@@ -1,4 +1,3 @@
-//this is a through table for the many to many relationship of many users doing many votes
 const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config/connection');
 

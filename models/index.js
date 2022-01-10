@@ -3,6 +3,7 @@ const User = require('./User');
 const Group = require('./Group');
 const Point = require('./Point');
 const Comment = require('./Comment');
+const Task = require('./Task');
 
 Group.hasMany(User, {
     foreignKey: 'group_id'
@@ -18,6 +19,14 @@ User.hasMany(Point, {
 
 Point.belongsTo(User, {
     foreignKey: 'user_id'
+});
+
+Group.hasMany(Task, {
+    foreignKey: "group_id"
+});
+
+Task.belongsTo(Group, {
+    foreignKey: "group_id"
 });
 
 

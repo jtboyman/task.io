@@ -9,23 +9,23 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jtboyman/just-tech-news.git"
+    "url": "git+https://github.com/jtboyman/task.io.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/jtboyman/just-tech-news/issues"
+    "url": "https://github.com/jtboyman/task.io/issues"
   },
-  "homepage": "https://github.com/jtboyman/just-tech-news#readme",
+  "homepage": "https://github.com/jtboyman/task.io#readme",
   "dependencies": {
     "bcrypt": "^5.0.1",
     "connect-session-sequelize": "^7.1.2",
     "dotenv": "^10.0.0",
-    "express": "^4.17.1",
+    "express": "^4.17.2",
     "express-handlebars": "^6.0.2",
     "express-session": "^1.17.2",
     "mysql2": "^2.3.3",
-    "sequelize": "^6.12.0-beta.3"
+    "sequelize": "^6.13.0"
   },
   "devDependencies": {
     "jest": "^27.4.5"
