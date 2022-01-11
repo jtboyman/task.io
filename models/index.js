@@ -49,7 +49,7 @@ Group.hasMany(Comment, {
     foreignKey: 'group_id'
 });
 
-module.exports = {User, Group, Point, Comment};
+module.exports = {User, Group, Point, Comment, Task};
 
 /* vote stuff lol idk
 //the votes association to connect Post and User through them
