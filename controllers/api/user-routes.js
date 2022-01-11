@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { User, Post, Vote, Comment } = require('../../models');
+const { User, Group, Comment, Point } = require('../../models');
 const withAuth = require('../../utils/auth');
 
 // GET /api/users (will select all users from user table in database and send
@@ -19,34 +19,36 @@ router.get('/', (req, res) => {
 // GET /api/users/1
 router.get('/:id', (req, res) =>{
     User.findOne({
-        attributes: {exclude: ['password']}, //protect passwords
+        attributes: [
+            'id',
+            'username',
+            'email',
+            'group_id',
+            'admin',
+            //sequelize literal
+           [sequelize.literal('(SELECT COUNT(*) FROM point WHERE user_id = user.id)'), 'point_count']
+        ],
         where: {
             id: req.params.id
         },
         include: [
             {
-                model: Post, //see the posts the user has made
-                attributes: ['id','title', 'post_url', 'created_at']
+                model: Group, //see the group the user is in
+                attributes: ['id','name']
             },
             {
                 model: Comment, //see the comments the user has made
                 attributes: ['id','comment_text', 'created_at'],
                 include: {
-                    model: Post, //so you can access to show what post the comment is on
-                    attributes: ['title']
+                    model: Group, //so you can access to show what group the comment is on
+                    attributes: ['name']
                 }
-            },
-            {
-                model: Post, //see the upvoted posts
-                attributes: ['title'],
-                through: Vote, //goes through the vote table
-                as: 'voted_posts'
             }
         ]
     })
     .then(dbUserData => {
         if (!dbUserData) {
-            res.status(404).json({message: 'No user found witht his id!'});
+            res.status(404).json({message: 'No user found with this id!'});
             return;
         }
         res.json(dbUserData);
@@ -63,7 +65,8 @@ router.post('/', (req, res) => {
     User.create({
         username: req.body.username,
         email: req.body.email,
-        password: req.body.password
+        password: req.body.password,
+        admin: req.body.admin
     })
     .then(dbUserData =>{
         /*want to make sure session is created before we send response back
@@ -127,6 +130,18 @@ router.post('/logout', (req, res) => {
         res.status(404).end();
     }
 })
+
+//add point
+router.put('/addPoint', withAuth, (req, res) => {
+    if (req.session) {
+        User.addPoint({...req.body, user_id: req.session.user_id}, {Point})
+        .then(updatedPointData => res.json(updatedPointData))
+        .catch(err => {
+            console.log(err);
+            res.status(500).json(err);
+        });
+    }
+});
 
 // PUT /api/users/1 (uses req.body req.params)
 router.put('/:id', withAuth, (req, res) => {

@@ -8,6 +8,27 @@ class User extends Model {
     checkPassword(loginPw) {
         return bcrypt.compareSync(loginPw, this.password); //normally use async
     }
+
+    static addPoint(body,models) {
+        return models.Point.create({
+            user_id: body.user_id
+        }).then(() => {
+            return User.findOne({
+                where: {
+                    id: body.user_id
+                },
+                attributes: [
+                    'id',
+                    'username',
+                    'email',
+                    'group_id',
+                    'admin',
+                    //sequelize literal
+                    [sequelize.literal('(SELECT COUNT(*) FROM point WHERE user.id = point.user_id)'), 'point_count']
+                ]
+            });
+        });
+    }
 }
 
 //define table columns and configuration with two object arguments
@@ -48,15 +69,6 @@ User.init(
             validate: {
                 //4 chars long
                 len: [4]
-            }
-        },
-        points: {
-            type: DataTypes.INTEGER,
-            allowNull: false,
-            defaultValue: 0,
-            references: {
-                model: 'point',
-                key: 'id'
             }
         },
         group_id: {
