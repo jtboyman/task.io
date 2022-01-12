@@ -86,12 +86,10 @@ router.get('/:id', (req, res) => {
 
 //create a group
 router.post('/', withAuth, (req, res) => {
-    //expects {name: 'group name', user_id: 1(any integer)}
+    //expects {name: 'group name'}
     Group.create({ //req.body is the request from the user and has these properties
         //req.body populates the post table
         name: req.body.name,
-        // /api/posts endpoint requires user ID from the current session:
-        user_id: req.session.user_id
     })
     .then(dbPostData => res.json(dbPostData))
     .catch(err => {
@@ -100,11 +98,11 @@ router.post('/', withAuth, (req, res) => {
     });
 });
 
-//update a group title
+//update a group name
 router.put('/:id', withAuth, (req, res) => {
     Group.update(
         {
-            title: req.body.title
+            name: req.body.name
         },
         {
             where: {

@@ -1,10 +1,10 @@
 //this will contain all the user-facing routes (homepage, login page)
 const sequelize = require('../config/connection');
-const { Post, User, Comment } = require('../models');
+const { Group, User, Comment, Point, Task } = require('../models');
 
 const router = require('express').Router();
 
-//get then render all the posts
+//get then render all the groups
 router.get('/', (req, res) => {
     console.log(req.session);
     Post.findAll({
