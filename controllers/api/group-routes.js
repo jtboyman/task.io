@@ -18,7 +18,7 @@ router.get('/', (req, res) => {
             //for getting comments:
             {
                 model: Comment,
-                attributes: ['id','comment_text','post_id','user_id','created_at'],
+                attributes: ['id','comment_text','group_id','user_id','created_at'],
                 include: { //comment model includes User model too so it can attach username to comment
                     model: User,
                     attributes: ['username']
@@ -26,7 +26,7 @@ router.get('/', (req, res) => {
             },
             {
                 model: User, //referring to User model
-                attributes: ['username'] //from the User model
+                attributes: ['username', [sequelize.literal('(SELECT COUNT(*) FROM point WHERE user.id = point.user_id)'), 'point_count']] //from the User model
             },
             {
                 model: Task,
@@ -55,7 +55,7 @@ router.get('/:id', (req, res) => {
             //for getting comments:
             {
                 model: Comment,
-                attributes: ['id','comment_text','post_id','user_id','created_at'],
+                attributes: ['id','comment_text','group_id','user_id','created_at'],
                 include: { //comment model includes User model too so it can attach username to comment
                     model: User,
                     attributes: ['username']
@@ -63,7 +63,7 @@ router.get('/:id', (req, res) => {
             },
             {
                 model: User,
-                attributes: ['username']
+                attributes: ['username', [sequelize.literal('(SELECT COUNT(*) FROM point WHERE user.id = point.user_id)'), 'point_count']]
             },
             {
                 model: Task,
@@ -86,12 +86,10 @@ router.get('/:id', (req, res) => {
 
 //create a group
 router.post('/', withAuth, (req, res) => {
-    //expects {name: 'group name', user_id: 1(any integer)}
+    //expects {name: 'group name'}
     Group.create({ //req.body is the request from the user and has these properties
         //req.body populates the post table
         name: req.body.name,
-        // /api/posts endpoint requires user ID from the current session:
-        user_id: req.session.user_id
     })
     .then(dbPostData => res.json(dbPostData))
     .catch(err => {
@@ -100,11 +98,11 @@ router.post('/', withAuth, (req, res) => {
     });
 });
 
-//update a group title
+//update a group name
 router.put('/:id', withAuth, (req, res) => {
     Group.update(
         {
-            title: req.body.title
+            name: req.body.name
         },
         {
             where: {

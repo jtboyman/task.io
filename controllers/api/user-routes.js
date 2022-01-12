@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const { User, Group, Comment, Point } = require('../../models');
+const sequelize = require('../../config/connection');
 const withAuth = require('../../utils/auth');
 
 // GET /api/users (will select all users from user table in database and send
@@ -26,7 +27,7 @@ router.get('/:id', (req, res) =>{
             'group_id',
             'admin',
             //sequelize literal
-           [sequelize.literal('(SELECT COUNT(*) FROM point WHERE user_id = user.id)'), 'point_count']
+           [sequelize.literal('(SELECT COUNT(*) FROM point WHERE user.id = point.user_id)'), 'point_count']
         ],
         where: {
             id: req.params.id
