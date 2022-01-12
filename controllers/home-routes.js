@@ -1,7 +1,6 @@
 //this will contain all the user-facing routes (homepage, login page)
 const sequelize = require('../config/connection');
 const { Group, User, Comment, Task, Point } = require('../models');
-
 const router = require('express').Router();
 
 //get then render all the groups

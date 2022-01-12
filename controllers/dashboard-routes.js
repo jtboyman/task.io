@@ -25,7 +25,7 @@ router.get('/', withAuth, (req, res) => { //that's where the qt withAuth goes
            },
            {
                model: User,
-               attributes: ['username', [sequelize.literal('(SELECT COUNT(*) FROM point WHERE user_id = user.id)'), 'point_count']]
+               attributes: ['username', [sequelize.literal('(SELECT COUNT(*) FROM point WHERE user.id = point.user_id)'), 'point_count']]
            }
        ]
    })
@@ -60,7 +60,7 @@ router.get('/edit/:id', withAuth, (req, res) => {
             },
             {
                 model: User,
-                attributes: ['username', [sequelize.literal('(SELECT COUNT(*) FROM point WHERE user_id = user.id)'), 'point_count']]
+                attributes: ['username', [sequelize.literal('(SELECT COUNT(*) FROM point WHERE user.id = point.user_id)'), 'point_count']]
             }
         ]
     })
