@@ -1,7 +1,6 @@
 //this will contain all the user-facing routes (homepage, login page)
 const sequelize = require('../config/connection');
-const { Group, User, Comment, Task } = require('../models');
-
+const { Group, User, Comment, Task, Point } = require('../models');
 const router = require('express').Router();
 
 //get then render all the groups
@@ -23,11 +22,15 @@ router.get('/', (req, res) => {
         },
         {
           model: User,
-          attributes: ['username', [sequelize.literal('(SELECT COUNT(*) FROM point WHERE user.id = point.user_id)'), 'point_count']]
+          attributes: ["username"],
+          include: {
+            model: Point,
+            attributes: ["id"],
+          },
         },
         {
           model: Task,
-          attributes: ['task_name', 'task_description', 'created_at']
+          attributes: ["task_name", "task_description"],
         }
       ]
     })
