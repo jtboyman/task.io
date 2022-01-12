@@ -1,8 +1,10 @@
 * {
-  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-body, html {
+body,
+html {
   height: 100%;
   padding: 0;
   margin: 0;
@@ -14,22 +16,63 @@ a {
   text-decoration: none;
   color: #225ca3;
   font-weight: bold;
-  transition: color .1s;
+  transition: color 0.1s;
 }
 
 a:hover {
   color: #3486eb;
 }
 
+.toggle-btn {
+  padding: 10px 30px;
+  cursor: pointer;
+  background: transparent;
+  border: 0;
+  outline: none;
+  position: relative;
+}
+
+#btn {
+  top: 0;
+  left: 0;
+  position: absolute;
+  width: 110px;
+  height: 100%;
+  background: linear-gradient(to right, #fff, #3486eb);
+  transition: 0.5s;
+}
+
+.submitting {
+  width: 85%;
+  padding: 10px 30px;
+  cursor: pointer;
+  display: block;
+  margin: auto;
+  background: linear-gradient(to right, #fff, #3486eb);
+  border: 0;
+  outline: none;
+}
+
+.chech-box {
+  margin: 30px 10px 30px 0;
+}
 button {
   background-color: #225ca3;
   border: 0;
-  padding: 1%;
+  padding: 10px 30px;
   color: white;
   font-weight: bold;
-  transition: background-color .1s;
+  transition: background-color 0.1s;
   cursor: pointer;
   border-radius: 5px;
+  border-radius: 30px;
+}
+
+#log {
+  left: 50px;
+}
+#sign {
+  left: 450px;
 }
 
 button:hover {
@@ -41,13 +84,15 @@ button:hover {
   padding: 0;
 }
 
-textarea, input {
-  padding: .5%;
+textarea,
+input {
+  padding: 0.5%;
   border-radius: 5px;
   border: 1px solid #ccc;
 }
 
-textarea:focus, input:focus {
+textarea:focus,
+input:focus {
   outline: none;
   border: 1px solid #3486eb;
 }
@@ -57,12 +102,49 @@ textarea {
   min-height: 100px;
 }
 
+.form-box {
+  width: 380px;
+  height: 480px;
+  position: relative;
+  margin: 6% auto;
+  background: #fff;
+  padding: 5px;
+  overflow: hidden;
+}
+
+.login-form {
+  top: 180px;
+  position: absolute;
+  width: 280px;
+  transition: 0.5s;
+}
+
 form > div {
   margin-bottom: 2%;
 }
 
-form label {
+.input-field {
+  width: 100%;
+  padding: 10px 0;
+  margin: 5px 0;
+  border-left: 0;
+  border-top: 0;
+  border-right: 0;
+  border-bottom: 0;
+  outline: none;
+  background: transparent;
+}
+
+form > label {
   display: block;
+  padding: 10px;
+  cursor: pointer;
+  border: 0;
+  outline: none;
+  position: relative;
+}
+
+.submitting {
 }
 
 .wrapper {
@@ -100,7 +182,7 @@ main {
   color: #225ca3;
   font-size: 100%;
   font-weight: bold;
-  transition: color .1s;
+  transition: color 0.1s;
   margin-left: 16px;
 }
 
@@ -135,7 +217,7 @@ main {
 
 .upvote-btn {
   background-color: #197d0f;
-  transition: background-color .1s;
+  transition: background-color 0.1s;
 }
 
 .upvote-btn:hover {
@@ -157,8 +239,8 @@ main {
 
 .comment .meta {
   font-size: 90%;
-  margin-bottom: .5%;
-  opacity: .6;
+  margin-bottom: 0.5%;
+  opacity: 0.6;
 }
 
 .new-post-form input {
