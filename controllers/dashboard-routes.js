@@ -1,80 +1,87 @@
 const router = require('express').Router();
 const sequelize = require('../config/connection');
-const {Group, User, Comment} = require('../models');
+const { Post, User, Comment, Vote } = require('../models');
 const withAuth = require('../utils/auth');
 
-//get the dashboard
-router.get('/', withAuth, (req, res) => { //that's where the qt withAuth goes
-   Group.findAll({
-       where: {
-           //use ID from the session
-           user_id: req.session.user_id
-       },
-       attributes: [
-           'id',
-           'name'
-       ],
-       include: [
-           {
-               model: Comment,
-               attributes: ['id','comment_text','group_id','user_id','created_at'],
-               include: {
-                   model: User,
-                   attributes: ['username']
-               }
-           },
-           {
-               model: User,
-               attributes: ['username', [sequelize.literal('(SELECT COUNT(*) FROM point WHERE user_id = user.id)'), 'point_count']]
-           }
-       ]
-   })
-   .then(dbGroupData => {
-       //serialize data before passing to template
-       const groups = dbGroupData.map(group => group.get({plain: true}));
-       res.render('dashboard', {groups, loggedIn:true});
-   })
-   .catch(err => {
-       console.log(err);
-       res.status(500).json(err);
-   });
-  });
-
-  //edit a group
-router.get('/edit/:id', withAuth, (req, res) => {
-    Group.findOne({
-        where: {id: req.params.id},
-        attributes: [
-            'id',
-            'name'
-        ],
-        include: [
-            //for getting comments:
-            {
-                model: Comment,
-                attributes: ['id','comment_text','group_id','user_id','created_at'],
-                include: { //comment model includes User model too so it can attach username to comment
-                    model: User,
-                    attributes: ['username']
-                }
-            },
-            {
-                model: User,
-                attributes: ['username', [sequelize.literal('(SELECT COUNT(*) FROM point WHERE user_id = user.id)'), 'point_count']]
-            }
-        ]
-    })
-    .then(dbGroupData => {
-        //serialize it!
-        const post = dbGroupData.get({plain: true}); //just getting one here unlike above
-
-        res.render('edit-group', {post, loggedIn:true});
+// get all posts for dashboard
+router.get('/', withAuth, (req, res) => {
+  console.log(req.session);
+  console.log('======================');
+  Post.findAll({
+    where: {
+      user_id: req.session.user_id
+    },
+    attributes: [
+      'id',
+      'content',
+      'title',
+      'created_at',
+      [sequelize.literal('(SELECT COUNT(*) FROM vote WHERE post.id = vote.post_id)'), 'vote_count']
+    ],
+    include: [
+      {
+        model: Comment,
+        attributes: ['id', 'comment_text', 'post_id', 'user_id', 'created_at'],
+        include: {
+          model: User,
+          attributes: ['username']
+        }
+      },
+      {
+        model: User,
+        attributes: ['username']
+      }
+    ]
+  })
+    .then(dbPostData => {
+      const posts = dbPostData.map(post => post.get({ plain: true }));
+      res.render('dashboard', { posts, loggedIn: true });
     })
     .catch(err => {
-        console.log(err);
-        res.status(500).json(err);
+      console.log(err);
+      res.status(500).json(err);
     });
 });
 
+router.get('/edit/:id', withAuth, (req, res) => {
+  Post.findByPk(req.params.id, {
+    attributes: [
+      'id',
+      'content',
+      'title',
+      'created_at',
+      [sequelize.literal('(SELECT COUNT(*) FROM vote WHERE post.id = vote.post_id)'), 'vote_count']
+    ],
+    include: [
+      {
+        model: Comment,
+        attributes: ['id', 'comment_text', 'post_id', 'user_id', 'created_at'],
+        include: {
+          model: User,
+          attributes: ['username']
+        }
+      },
+      {
+        model: User,
+        attributes: ['username']
+      }
+    ]
+  })
+    .then(dbPostData => {
+      if (dbPostData) {
+        const post = dbPostData.get({ plain: true });
+        
+        res.render('edit-post', {
+          post,
+          loggedIn: true
+        });
+      } else {
+        res.status(404).end();
+      }
+    })
+    .catch(err => {
+      res.status(500).json(err);
+    });
+});
 
 module.exports = router;

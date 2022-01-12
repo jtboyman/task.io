@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CheeseBorgers</title>
+  <title>Task.io</title>
   <link rel="stylesheet" href="/stylesheets/style.css">
 </head>
 
@@ -12,15 +12,14 @@
   <div class="wrapper">
     <header>
       <h1>
-        <a href="/">CheeseBorgers</a>
+        <a href="/">Task.io</a>
       </h1>
       <nav>
         {{#if loggedIn}}
         <a href="/dashboard">dashboard</a>
         <button id="logout" class="btn-no-style">logout</button>
-        <div id="username">Logged in as:{{user.username}}
-          Points: 0
-        </div> 
+        <div>Currently Logged in as: {{user.username}}</div>
+        You have <div id="points">0</div> Points
         
         {{else}}
         <a href="/login">login</a>
@@ -34,9 +33,8 @@
       Thanks for visiting!
     </footer>
   </div>
-
-  {{#if loggedIn}}
   
+  {{#if loggedIn}}
   <script src="/javascript/logout.js"></script>
   {{/if}}
 </body>

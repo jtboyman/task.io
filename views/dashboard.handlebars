@@ -1,6 +1,5 @@
 <section>
-  {{#if user.admin}}
-  <h2>Create New Post</h2>
+  <h2>Create New Group</h2>
 
   <form class="new-post-form">
     <div>
@@ -13,12 +12,10 @@
     </div>
     <button type="submit" class="btn">Create</button>
   </form>
-  {{/if}}
 </section>
-
 {{#if posts.length}}
 <section>
-  <h2>Your Posts</h2>
+  <h2>Your Groups<div id='points'></div>0<div>Points</div></h2>
   <ol>
     {{#each posts}}
     <li>

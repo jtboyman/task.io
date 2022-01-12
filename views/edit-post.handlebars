@@ -1,7 +1,7 @@
 <article>
   <a href="/dashboard"> &larr; Back to dashboard</a>
   <h2>
-    Edit Post
+    Edit Group
   </h2>
   <form class="edit-post-form">
     <div>
@@ -13,22 +13,23 @@
       |
       <a href="/post/{{post.id}}">{{post.comments.length}} {{format_plural "comment" post.comments.length}}</a>
     </div>
-    <button type="submit">Save post</button>
-    <button type="button" class="delete-post-btn">Delete post</button>
+    <button type="submit">Save group</button>
+    <button type="button" class="delete-post-btn">Delete group</button>
   </form>
 </article>
 
 <form class="comment-form">
   <div>
     <textarea name="comment-body"></textarea>
+    
   </div>
 
   <div>
-    <button type="submit">add comment</button>
+    <button type="submit">add task</button>
   </div>
 </form>
 
-{{> comments post.comments}}
+{{> comments post.comments}} 
 
 <script src="/javascript/edit-post.js"></script>
 <script src="/javascript/delete-post.js"></script>

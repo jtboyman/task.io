@@ -1,3 +1,3 @@
-DROP DATABASE IF EXISTS taskify_db;
+DROP DATABASE IF EXISTS Cheeseburger_db;
 
-CREATE DATABASE taskify_db;
+CREATE DATABASE Cheeseburger_db;
