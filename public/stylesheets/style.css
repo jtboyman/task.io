@@ -145,6 +145,12 @@ form > label {
 }
 
 .submitting {
+  width: 85%;
+  padding: 10px;
+  cursor: pointer;
+  display: block;
+  margin: auto;
+  background: linear-gradient(to right, #fff, #3486eb);
 }
 
 .wrapper {
