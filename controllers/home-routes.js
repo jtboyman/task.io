@@ -7,13 +7,10 @@ const router = require('express').Router();
 //get then render all the groups
 router.get('/', (req, res) => {
     console.log(req.session);
-    Post.findAll({
+    Group.findAll({
       attributes: [
         'id',
-        'post_url',
-        'title',
-        'created_at',
-        [sequelize.literal('(SELECT COUNT(*) FROM vote WHERE post.id = vote.post_id)'), 'vote_count']
+        'name'
       ],
       include: [
         {
@@ -27,18 +24,22 @@ router.get('/', (req, res) => {
         {
           model: User,
           attributes: ['username']
+        },
+        {
+          model: Task,
+          attributes: ['task_name', 'task_description', 'created_at']
         }
       ]
     })
-      .then(dbPostData => {
+      .then(dbGroupData => {
         // check out a single post
-        console.log(dbPostData[0]);
+        console.log(dbGroupData[0]);
         //this will loop over and map each sequelize obj into the nice version and make a new posts aray
-        const posts = dbPostData.map(post => post.get({plain: true}));
+        const groups = dbGroupData.map(group => group.get({plain: true}));
         //render writes it into main.handlebars, this writes homepage using that post data
         res.render('homepage', {
-            posts, //put that array u made in
-            loggedIn: req.session.loggedIn //for the if statement in template re: login/logout button
+            groups, //put that array u made in
+            loggedIn: req.session.loggedIn //for the if statement in template re: login/logout button/points
         }); 
       })
       .catch(err => {
@@ -59,18 +60,15 @@ router.get('/', (req, res) => {
 
 
 
-//render a single post
-router.get('/post/:id', (req, res) => {
-    Post.findOne({
+//render a single group
+router.get('/group/:id', (req, res) => {
+    Group.findOne({
         where: {
             id: req.params.id
         },
         attributes: [
             'id',
-            'post_url',
-            'title',
-            'created_at',
-            [sequelize.literal('(SELECT COUNT(*) FROM vote WHERE post.id = vote.post_id)'), 'vote_count']
+            'name'
         ],
         include: [
             {
@@ -84,21 +82,25 @@ router.get('/post/:id', (req, res) => {
             {
                 model: User,//get stuff from user model for post model
                 attributes: ['username']
+            },
+            {
+              model: Task,
+              attributes: ['task_name', 'task_description', 'created_at']
             }
         ]
     })
-    .then(dbPostData => {
-        if (!dbPostData) {
-            res.status(404).json({message: 'No post found with this id' });
+    .then(dbGroupData => {
+        if (!dbGroupData) {
+            res.status(404).json({message: 'No group found with this id!' });
             return;
         }
 
         //serialize (make readable) the data
-        const post = dbPostData.get({plain: true});
+        const group = dbGroupData.get({plain: true});
 
         //pass data to template
-        res.render('single-post', {
-            post,
+        res.render('single-group', {
+            group,
             loggedIn: req.session.loggedIn
         });
     })
