@@ -1,44 +1,48 @@
 //this will contain all the user-facing routes (homepage, login page)
 const sequelize = require('../config/connection');
-const { Post, User, Comment } = require('../models');
+const { Group, User, Comment, Task, Point } = require('../models');
 
 const router = require('express').Router();
 
-//get then render all the posts
+//get then render all the groups
 router.get('/', (req, res) => {
     console.log(req.session);
-    Post.findAll({
+    Group.findAll({
       attributes: [
         'id',
-        'post_url',
-        'title',
-        'created_at',
-        [sequelize.literal('(SELECT COUNT(*) FROM vote WHERE post.id = vote.post_id)'), 'vote_count']
+        'name'
       ],
       include: [
         {
           model: Comment,
-          attributes: ['id', 'comment_text', 'post_id', 'user_id', 'created_at'],
+          attributes: ['id', 'comment_text', 'group_id', 'user_id', 'created_at'],
           include: {
             model: User,
             attributes: ['username']
           }
         },
         {
-          model: User,
-          attributes: ['username']
+          attributes: ["username"],
+          include: {
+            model: Point,
+            attributes: ["id"],
+          },
+        },
+        {
+          model: Task,
+          attributes: ["task_name", "task_description", "created_at"],
         }
       ]
     })
-      .then(dbPostData => {
+      .then(dbGroupData => {
         // check out a single post
-        console.log(dbPostData[0]);
+        console.log(dbGroupData[0]);
         //this will loop over and map each sequelize obj into the nice version and make a new posts aray
-        const posts = dbPostData.map(post => post.get({plain: true}));
+        const groups = dbGroupData.map(group => group.get({plain: true}));
         //render writes it into main.handlebars, this writes homepage using that post data
         res.render('homepage', {
-            posts, //put that array u made in
-            loggedIn: req.session.loggedIn //for the if statement in template re: login/logout button
+            groups, //put that array u made in
+            loggedIn: req.session.loggedIn //for the if statement in template re: login/logout button/points
         }); 
       })
       .catch(err => {
@@ -59,46 +63,47 @@ router.get('/', (req, res) => {
 
 
 
-//render a single post
-router.get('/post/:id', (req, res) => {
-    Post.findOne({
+//render a single group
+router.get('/group/:id', (req, res) => {
+    Group.findOne({
         where: {
             id: req.params.id
         },
         attributes: [
             'id',
-            'post_url',
-            'title',
-            'created_at',
-            [sequelize.literal('(SELECT COUNT(*) FROM vote WHERE post.id = vote.post_id)'), 'vote_count']
+            'name'
         ],
         include: [
             {
                 model: Comment, //get stuff from the comment model
-                attributes: ['id','comment_text','post_id','user_id','created_at'],
+                attributes: ['id','comment_text','group_id','user_id','created_at'],
                 include: {
                     model: User, //get stuff from user for comment model
                     attributes: ['username']
                 }
             },
             {
-                model: User,//get stuff from user model for post model
-                attributes: ['username']
+                model: User,//get stuff from user model for group model
+                attributes: ['username', [sequelize.literal('(SELECT COUNT(*) FROM point WHERE user.id = point.user_id)'), 'point_count']]
+            },
+            {
+              model: Task,
+              attributes: ['task_name', 'task_description', 'created_at']
             }
         ]
     })
-    .then(dbPostData => {
-        if (!dbPostData) {
-            res.status(404).json({message: 'No post found with this id' });
+    .then(dbGroupData => {
+        if (!dbGroupData) {
+            res.status(404).json({message: 'No group found with this id!' });
             return;
         }
 
         //serialize (make readable) the data
-        const post = dbPostData.get({plain: true});
+        const group = dbGroupData.get({plain: true});
 
         //pass data to template
-        res.render('single-post', {
-            post,
+        res.render('single-group', {
+            group,
             loggedIn: req.session.loggedIn
         });
     })
