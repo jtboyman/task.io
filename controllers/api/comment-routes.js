@@ -8,7 +8,7 @@ router.get('/', (req, res) => {
             'id',
             'comment_text',
             'user_id',
-            'post_id',
+            'group_id',
             'created_at'
         ],
         order:[['created_at', 'DESC']]
@@ -25,7 +25,7 @@ router.post('/', withAuth, (req, res) => {
     if (req.session) {
         Comment.create({
             comment_text: req.body.comment_text,
-            post_id: req.body.post_id,
+            group_id: req.body.group_id,
             //use id form the session
             user_id: req.session.user_id
         })

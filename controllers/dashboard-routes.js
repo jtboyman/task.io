@@ -1,26 +1,23 @@
 const router = require('express').Router();
 const sequelize = require('../config/connection');
-const {Post, User, Comment} = require('../models');
+const {Group, User, Comment} = require('../models');
 const withAuth = require('../utils/auth');
 
 //get the dashboard
 router.get('/', withAuth, (req, res) => { //that's where the qt withAuth goes
-   Post.findAll({
+   Group.findAll({
        where: {
            //use ID from the session
            user_id: req.session.user_id
        },
        attributes: [
            'id',
-           'post_url',
-           'title',
-           'created_at',
-           [sequelize.literal('(SELECT COUNT(*) FROM vote WHERE post.id = vote.post_id)'), 'vote_count']
+           'name'
        ],
        include: [
            {
                model: Comment,
-               attributes: ['id','comment_text','post_id','user_id','created_at'],
+               attributes: ['id','comment_text','group_id','user_id','created_at'],
                include: {
                    model: User,
                    attributes: ['username']
@@ -28,14 +25,14 @@ router.get('/', withAuth, (req, res) => { //that's where the qt withAuth goes
            },
            {
                model: User,
-               attributes: ['username']
+               attributes: ['username', [sequelize.literal('(SELECT COUNT(*) FROM point WHERE user_id = user.id)'), 'point_count']]
            }
        ]
    })
-   .then(dbPostData => {
+   .then(dbGroupData => {
        //serialize data before passing to template
-       const posts = dbPostData.map(post => post.get({plain: true}));
-       res.render('dashboard', {posts, loggedIn:true});
+       const groups = dbGroupData.map(group => group.get({plain: true}));
+       res.render('dashboard', {groups, loggedIn:true});
    })
    .catch(err => {
        console.log(err);
@@ -43,23 +40,19 @@ router.get('/', withAuth, (req, res) => { //that's where the qt withAuth goes
    });
   });
 
-  //edit a post
+  //edit a group
 router.get('/edit/:id', withAuth, (req, res) => {
-    Post.findOne({
+    Group.findOne({
         where: {id: req.params.id},
         attributes: [
             'id',
-            'post_url',
-            'title',
-            'created_at',
-            //use sequelize.literal to get the total upvotes count
-            [sequelize.literal('(SELECT COUNT(*) FROM vote WHERE post.id = vote.post_id)'), 'vote_count']
+            'name'
         ],
         include: [
             //for getting comments:
             {
                 model: Comment,
-                attributes: ['id','comment_text','post_id','user_id','created_at'],
+                attributes: ['id','comment_text','group_id','user_id','created_at'],
                 include: { //comment model includes User model too so it can attach username to comment
                     model: User,
                     attributes: ['username']
@@ -67,15 +60,15 @@ router.get('/edit/:id', withAuth, (req, res) => {
             },
             {
                 model: User,
-                attributes: ['username']
+                attributes: ['username', [sequelize.literal('(SELECT COUNT(*) FROM point WHERE user_id = user.id)'), 'point_count']]
             }
         ]
     })
-    .then(dbPostData => {
+    .then(dbGroupData => {
         //serialize it!
-        const post = dbPostData.get({plain: true}); //just getting one here unlike above
+        const post = dbGroupData.get({plain: true}); //just getting one here unlike above
 
-        res.render('edit-post', {post, loggedIn:true});
+        res.render('edit-group', {post, loggedIn:true});
     })
     .catch(err => {
         console.log(err);
