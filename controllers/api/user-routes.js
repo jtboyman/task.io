@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const { User, Group, Comment, Point } = require('../../models');
+const sequelize = require('../../config/connection');
 const withAuth = require('../../utils/auth');
 
 // GET /api/users (will select all users from user table in database and send
