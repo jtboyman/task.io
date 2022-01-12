@@ -23,7 +23,7 @@ router.get('/', (req, res) => {
         },
         {
           model: User,
-          attributes: ['username', [sequelize.literal('(SELECT COUNT(*) FROM point WHERE user_id = user.id)'), 'point_count']]
+          attributes: ['username', [sequelize.literal('(SELECT COUNT(*) FROM point WHERE user.id = point.user_id)'), 'point_count']]
         },
         {
           model: Task,
@@ -81,7 +81,7 @@ router.get('/group/:id', (req, res) => {
             },
             {
                 model: User,//get stuff from user model for group model
-                attributes: ['username', [sequelize.literal('(SELECT COUNT(*) FROM point WHERE user_id = user.id)'), 'point_count']]
+                attributes: ['username', [sequelize.literal('(SELECT COUNT(*) FROM point WHERE user.id = point.user_id)'), 'point_count']]
             },
             {
               model: Task,

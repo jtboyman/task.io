@@ -24,7 +24,7 @@ class User extends Model {
                     'group_id',
                     'admin',
                     //sequelize literal
-                    [sequelize.literal('(SELECT COUNT(*) FROM point WHERE user_id = user.id)'), 'point_count']
+                    [sequelize.literal('(SELECT COUNT(*) FROM point WHERE user.id = point.user_id)'), 'point_count']
                 ]
             });
         });
