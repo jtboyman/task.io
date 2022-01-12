@@ -22,6 +22,7 @@ router.get('/', (req, res) => {
           }
         },
         {
+          model: User,
           attributes: ["username"],
           include: {
             model: Point,
@@ -30,7 +31,7 @@ router.get('/', (req, res) => {
         },
         {
           model: Task,
-          attributes: ["task_name", "task_description", "created_at"],
+          attributes: ["task_name", "task_description"],
         }
       ]
     })
