@@ -1,10 +1,10 @@
 <article class="post">
   <div class="title">
     <a href="{{content}}" target="_blank">{{title}}</a>
-    <span>({{ content}})</span>
+    <span>({{content}})</span>
   </div>
   <div class="meta">
-    {{vote_count}} {{format_plural "point" vote_count}} by {{user.username}} on {{format_date created_at}}
+    By {{user.username}} on {{format_date created_at}}
     |
     <a href="/post/{{id}}">{{comments.length}} {{format_plural "comment" comments.length}}</a>
   </div>
@@ -23,7 +23,7 @@
 </form>
 {{/if}}
 
-{{> comments post.comments}}
+{{> comments comments}}
 
 {{#if loggedIn}}
 <script src="/javascript/comment.js"></script>

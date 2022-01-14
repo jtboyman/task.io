@@ -19,12 +19,12 @@ router.get('/', (req, res) => {
         attributes: ['id', 'comment_text', 'post_id', 'user_id', 'created_at'],
         include: {
           model: User,
-          attributes: ['username']
+          attributes: ['username', 'admin']
         }
       },
       {
         model: User,
-        attributes: ['username']
+        attributes: ['username', 'admin']
       }
     ]
   })
@@ -61,12 +61,12 @@ router.get('/post/:id', (req, res) => {
         attributes: ['id', 'comment_text', 'post_id', 'user_id', 'created_at'],
         include: {
           model: User,
-          attributes: ['username']
+          attributes: ['username', 'admin']
         }
       },
       {
         model: User,
-        attributes: ['username']
+        attributes: ['username', 'admin']
       }
     ]
   })
@@ -77,9 +77,9 @@ router.get('/post/:id', (req, res) => {
       }
 
       const post = dbPostData.get({ plain: true });
-
+      console.log(post);
       res.render('single-post', {
-        post,
+        ...post,
         loggedIn: req.session.loggedIn
       });
     })

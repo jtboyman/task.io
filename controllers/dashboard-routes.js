@@ -24,18 +24,19 @@ router.get('/', withAuth, (req, res) => {
         attributes: ['id', 'comment_text', 'post_id', 'user_id', 'created_at'],
         include: {
           model: User,
-          attributes: ['username']
+          attributes: ['username', 'admin']
         }
       },
       {
         model: User,
-        attributes: ['username']
+        attributes: ['username', 'admin']
       }
     ]
   })
     .then(dbPostData => {
       const posts = dbPostData.map(post => post.get({ plain: true }));
-      res.render('dashboard', { posts, loggedIn: true });
+      
+      res.render('dashboard', { posts, admin: req.session.admin, loggedIn: true });
     })
     .catch(err => {
       console.log(err);
@@ -58,12 +59,12 @@ router.get('/edit/:id', withAuth, (req, res) => {
         attributes: ['id', 'comment_text', 'post_id', 'user_id', 'created_at'],
         include: {
           model: User,
-          attributes: ['username']
+          attributes: ['username', 'admin']
         }
       },
       {
         model: User,
-        attributes: ['username']
+        attributes: ['username', 'admin']
       }
     ]
   })
@@ -72,7 +73,7 @@ router.get('/edit/:id', withAuth, (req, res) => {
         const post = dbPostData.get({ plain: true });
         
         res.render('edit-post', {
-          post,
+          ...post,
           loggedIn: true
         });
       } else {

@@ -1,18 +1,19 @@
 <section>
+  {{#if admin}}
   <h2>Create New Group</h2>
-
   <form class="new-post-form">
     <div>
-      <label for="post-title">Title</label>
+      <label for="post-title">Group Name</label>
       <input type="text" id="post-title" name="post-title" />
     </div>
     <div>
-      <label for="content">Content</label>
+      <label for="content">Group Description</label>
       <textarea id="content" name="content"></textarea>
     </div>
     <button type="submit" class="btn">Create</button>
   </form>
 </section>
+{{/if}}
 {{#if posts.length}}
 <section>
   <h2>Your Groups<div id='points'></div>0<div>Points</div></h2>
@@ -37,4 +38,5 @@
 </section>
 {{/if}}
 
+<script src="/javascript/login.js"></script>
 <script src="/javascript/add-post.js"></script>
