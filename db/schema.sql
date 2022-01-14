@@ -1,3 +1,3 @@
-DROP DATABASE IF EXISTS taskify_db;
+DROP DATABASE IF EXISTS taskio_db;
 
-CREATE DATABASE taskify_db;
+CREATE DATABASE taskio_db;
