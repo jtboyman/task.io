@@ -1,0 +1,17 @@
+<ol class="post-list">
+  {{#each teams}}
+  <li>
+    <article class="post">
+      <div class="title">
+        <p>{{team_name}}</p>
+        <p>{{team_description}}</p>
+      </div>
+      <div class="meta">
+        {{point_count}} point(s) by {{admin.admin_name}} on {{created_at}}
+
+        <p>{{tasks.length}} task(s)</p>
+      </div>
+    </article>
+  </li>
+  {{/each}}
+</ol>
