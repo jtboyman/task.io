@@ -1,5 +1,13 @@
 const User = require('./User');
 const Admin = require('./Admin');
-const Group = require('./Group');
+const Team = require('./Team');
 
-module.exports = { User, Admin, Group };
+Admin.hasMany(Team, {
+    foreignKey: 'admin_id'
+});
+
+Team.belongsTo(Admin, {
+    foreignKey: 'admin_id'
+})
+
+module.exports = { User, Admin, Team };
