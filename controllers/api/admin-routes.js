@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { Admin, Team, Comment, Point } = require('../../models');
+const { Admin, Team, Task, Point } = require('../../models');
 
 // get all admins
 router.get('/', (req, res) => {
@@ -24,6 +24,14 @@ router.get('/:id', (req, res) => {
             {
                 model: Team,
                 attributes: ['id', 'team_name', 'team_description', 'created_at',]
+            },
+            {
+                model: Task,
+                attributes: ['id', 'task_text', 'admin_id', 'team_id', 'created_at'],
+                include: {
+                    model: Team,
+                    attributes: ['team_name']
+                }
             }
         ]
     })

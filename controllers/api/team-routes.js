@@ -1,12 +1,20 @@
 const router = require('express').Router();
 const sequelize = require('../../config/connection')
-const { Team, User, Admin, Point } = require('../../models');
+const { Team, User, Admin, Point, Task } = require('../../models');
 
 //GET all teams
 router.get('/', (req, res) => {
     Team.findAll({
         attributes: ['id', 'team_name', 'team_description', 'created_at', [sequelize.literal('(SELECT COUNT(*) FROM point WHERE team.id = point.team_id)'), 'point_count']],
         include: [
+            {
+                model: Task,
+                attributes: ['id', 'task_text', 'admin_id', 'team_id', 'created_at'],
+                include: {
+                    model: Admin,
+                    attributes: ['admin_name']
+                }
+            },
             {
                 model: Admin,
                 attributes: ['admin_name']

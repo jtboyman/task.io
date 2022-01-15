@@ -2,6 +2,7 @@ const User = require('./User');
 const Admin = require('./Admin');
 const Team = require('./Team');
 const Point = require('./Point');
+const Task = require('./Task');
 
 //realte admins to teams they create
 Admin.hasMany(Team, {
@@ -29,4 +30,21 @@ Team.hasMany(Point, {
     foreignKey: 'team_id'
 });
 
-module.exports = { User, Admin, Team, Point };
+//relate tasks to admin and teams so admins can post the tasks into the  teams
+Task.belongsTo(Admin, {
+    foreignKey: 'admin_id'
+});
+
+Task.belongsTo(Team, {
+    foreignKey: 'team_id'
+});
+
+Admin.hasMany(Task, {
+    foreignKey: 'admin_id'
+});
+
+Team.hasMany(Task, {
+    foreignKey: 'team_id'
+});
+
+module.exports = { User, Admin, Team, Point, Task };
