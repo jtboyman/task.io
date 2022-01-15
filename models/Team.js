@@ -1,11 +1,11 @@
 const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config/connection');
 
-class Team extends Model {}
+class Team extends Model { }
 
 Team.init(
     {
-        id:{
+        id: {
             type: DataTypes.INTEGER,
             allowNull: false,
             primaryKey: true,
@@ -22,7 +22,7 @@ Team.init(
         admin_id: {
             type: DataTypes.INTEGER,
             references: {
-                model:'admin',
+                model: 'admin',
                 key: 'id'
             }
         }
@@ -32,7 +32,7 @@ Team.init(
         freezeTableName: true,
         underscored: true,
         modelName: 'team'
-      }
+    }
 );
 
 module.exports = Team;

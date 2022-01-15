@@ -39,6 +39,10 @@ router.get('/:id', (req, res) => {
             {
                 model: Admin,
                 attributes: ['admin_name']
+            }, //check and see if u need array lol
+            {
+                model: User,
+                attributes: ['username']
             }
         ]
     })

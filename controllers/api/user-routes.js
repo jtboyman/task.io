@@ -1,10 +1,10 @@
 const router = require('express').Router();
-const { User, Team, Comment, Point } = require('../../models');
+const { User, Team, Task, Point } = require('../../models');
 
 // get all users
 router.get('/', (req, res) => {
     User.findAll({
-      attributes: { exclude: ['password'] }
+      attributes: { exclude: ['password'] },
     })
       .then(dbUserData => res.json(dbUserData))
       .catch(err => {
@@ -20,6 +20,10 @@ router.get('/:id', (req, res) => {
         where: {
             id: req.params.id
         },
+        include: {
+            model: Team,
+            attributes: ['id', 'team_name']
+        }
     })
       .then(dbUserData => {
         if (!dbUserData) {
@@ -36,11 +40,12 @@ router.get('/:id', (req, res) => {
 
   // POST /api/users
   router.post('/', (req, res) => {
-    // expects {username: 'username', email: 'email@gmail.com', password: 'password1234'}
+    // expects {username: 'username', email: 'email@gmail.com', password: 'password1234', team_id: 1}
     User.create({
       username: req.body.username,
       email: req.body.email,
-      password: req.body.password
+      password: req.body.password,
+      team_id: req.body.team_id
     })
     .then(dbUserData => res.json(dbUserData))
     .catch(err => {
