@@ -1,0 +1,3 @@
+DROP DATABASE IF EXISTS taskio_db;
+
+CREATE DATABASE taskio_db;
