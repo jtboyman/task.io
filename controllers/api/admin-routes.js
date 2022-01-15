@@ -56,7 +56,15 @@ router.get('/:id', (req, res) => {
       email: req.body.email,
       password: req.body.password
     })
-    .then(dbAdminData => res.json(dbAdminData))
+    .then(dbAdminData => {
+        req.session.save(() => {
+            req.session.admin_id = dbAdminData.id;
+            req.session.admin_name = dbAdminData.admin_name;
+            req.session.loggedIn = true;
+
+            res.json(dbAdminData);
+        });
+    })
     .catch(err => {
       console.log(err);
       res.status(500).json(err);
@@ -81,8 +89,14 @@ router.post('/login', (req, res) => {
         res.status(400).json({ message: 'Incorrect password!' });
         return;
       }
+
+      req.session.save(()=> {
+          req.session.admin_id = dbAdminData.id;
+          req.session.admin_name = dbAdminData.admin_name;
+          req.session.loggedIn = true;
   
       res.json({ admin: dbAdminData, message: 'You are now logged in!' });
+      });
     });
   });
 
