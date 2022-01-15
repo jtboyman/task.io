@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { Admin, Post, Comment, Vote } = require('../../models');
+const { Admin, Team, Comment, Point } = require('../../models');
 
 // get all admins
 router.get('/', (req, res) => {
@@ -16,10 +16,16 @@ router.get('/', (req, res) => {
   // GET /api/admins/1
 router.get('/:id', (req, res) => {
     Admin.findOne({
-    attributes: { exclude: ['password'] },
-      where: {
-        id: req.params.id
-      }
+        attributes: { exclude: ['password'] },
+        where: {
+            id: req.params.id
+        },
+        include: [
+            {
+                model: Team,
+                attributes: ['id', 'team_name', 'team_description', 'created_at',]
+            }
+        ]
     })
       .then(dbAdminData => {
         if (!dbAdminData) {

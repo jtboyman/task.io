@@ -1,11 +1,11 @@
 const router = require('express').Router();
-const { Team, User, Admin } = require('../../models');
+const sequelize = require('../../config/connection')
+const { Team, User, Admin, Point } = require('../../models');
 
 //GET all teams
 router.get('/', (req, res) => {
     Team.findAll({
-        attributes: ['id', 'team_name', 'team_description', 'created_at'],
-        order: ['created_at', 'DESC'],
+        attributes: ['id', 'team_name', 'team_description', 'created_at', [sequelize.literal('(SELECT COUNT(*) FROM point WHERE team.id = point.team_id)'), 'point_count']],
         include: [
             {
                 model: Admin,
@@ -26,7 +26,7 @@ router.get('/:id', (req, res) => {
         where: {
             id: req.params.id
         },
-        attributes: ['id', 'team_name', 'team_description', 'created_at'],
+        attributes: ['id', 'team_name', 'team_description', 'created_at', [sequelize.literal('(SELECT COUNT(*) FROM point WHERE team.id = point.team_id)'), 'point_count']],
         include: [
             {
                 model: Admin,
@@ -59,6 +59,33 @@ router.post('/', (req, res) => {
     .catch(err => {
         console.log(err);
         res.status(500).json(err);
+    });
+});
+
+//PUT add a point to a team /api/teams/addPoint
+router.put('/addPoint', (req, res) => {
+    Point.create({
+        admin_id: req.body.admin_id,
+        team_id: req.body.team_id
+    })
+    .then(() => {
+        return Team.findOne({
+            where: {
+                id: req.body.team_id
+            },
+            attributes: [
+                'id',
+                'team_name',
+                'team_description',
+                'created_at',
+                [sequelize.literal('(SELECT COUNT(*) FROM point WHERE team.id = point.team_id)'), 'point_count']
+            ]
+        })
+    })
+    .then(dbTeamData=> res.json(dbTeamData))
+    .catch(err => {
+        console.log(err);
+        res.status(400).json(err);
     });
 });
 
