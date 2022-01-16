@@ -8,17 +8,35 @@
   </head>
 
   <body>
+
     <div class="wrapper">
-      <div class="hero-image">
-        <div class="hero-text">
+
+      <header>
+
+        <nav>
+          {{#if loggedIn}}
+            <a href="/dashboard">dashboard</a>
+            <button id="logout" class="btn-no-style">logout</button>
+            <div>Currently Logged in as: {{user.username}}</div>
+            You have
+            <div id="points">0</div>
+            Points
+
+          {{/if}}
+
+        </nav>
+      </header>
+      <div class="image-container">
+        <div class="inner-container">
           <h1 class="welcome-text">
             Welcome to
             <a href="/" class="page-title">Task.io</a>
           </h1>
-
           <h2>
+
             <a href="/login" class="page-login">Login</a>
           </h2>
+
         </div>
 
       </div>
@@ -30,7 +48,7 @@
         Get Busy! :)
       </footer>
     </div>
-
+    <script src="/javascript/logout.js"></script>
   </body>
 
 </html>

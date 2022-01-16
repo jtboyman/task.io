@@ -1,27 +1,29 @@
 body,
 html {
+  margin: 0;
   height: 100%;
 }
 
 /*welcome page styling start */
 
 /*Hero image*/
-.hero-image {
-  background-image: url("/images/hero-image.jpg");
-  height: 90%;
+.image-container {
+  background-image: url("/images/my-hero.jpg");
+  height: 70%;
+
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
   position: relative;
 }
 
-.hero-text {
+.inner-container {
   text-align: center;
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  width: 100%;
+  height: auto;
   color: black;
+  margin-top: 200px;
 }
 
 /*sign-in and up forms*/
@@ -66,7 +68,7 @@ form input {
   outline: none;
 }
 
-input[type="button"] {
+button {
   width: 320px;
   height: 35px;
   margin-top: 20px;
