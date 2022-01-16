@@ -27,4 +27,4 @@ async function taskFormHandler(event) {
       }
   }
   
-  document.querySelector('#task-form').addEventListener('submit', taskFormHandler);
+  document.querySelector('.task-form').addEventListener('submit', taskFormHandler);

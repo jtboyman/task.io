@@ -1,0 +1,31 @@
+<section>
+  <h2>Create New Team</h2>
+
+  <form class="new-team-form" id="new-team-form">
+    <div>
+      <label for="team-name">Team Name</label>
+      <input type="text" id="team-name" name="team-name" />
+    </div>
+    <div>
+      <label for="team-description">Team Description</label>
+      <input id="team-description" name="team-description" />
+    </div>
+    <button type="submit" class="btn">Create</button>
+  </form>
+</section>
+
+{{#if teams.length}}
+<section>
+  <h2>Your Teams</h2>
+  <ol>
+    {{#each teams as |team|}}
+    <li>
+      {{> team-info team}}
+      <a href="/adminHome/edit/{{team.id}}" class="edit-link">Edit Team</a>
+    </li>
+    {{/each}}
+  </ol>
+</section>
+{{/if}}
+
+<script src="/javascript/add-team.js"></script>

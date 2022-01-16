@@ -1,0 +1,35 @@
+<article>
+  <a href="/adminHome"> &larr; Back to Admin Profile</a>
+  <h2>
+    Edit Team Name
+  </h2>
+  <form class="team-form">
+    <div>
+      <input name="team-name" type="text" value="{{team.team_name}}" />
+      <p>{{team.team_description}}</p>
+    </div>
+    <div>
+      {{team.point_count}} {{format_plural "point" team.point_count}} by you on {{format_date team.created_at}}
+      |
+      <a href="/team/{{team.id}}">{{team.tasks.length}} {{format_plural "task" team.tasks.length}}</a>
+    </div>
+    <button type="submit" id="save-team-btn">Save Team</button>
+    <button type="button" class="delete-team-btn" id="delete-team-btn">Delete Team</button>
+  </form>
+</article>
+
+<form class="task-form">
+  <div>
+    <textarea name="task-text"></textarea>
+  </div>
+
+  <div>
+    <button type="submit">add task</button>
+  </div>
+</form>
+
+{{> tasks team.tasks}}
+
+<script src="/javascript/edit-team.js"></script>
+<script src="/javascript/delete-team.js"></script>
+<script src="/javascript/task.js"></script>

@@ -1,5 +1,6 @@
 const router = require('express').Router();
-const sequelize = require('../../config/connection')
+const sequelize = require('../../config/connection');
+const withAdminAuth = require('../../utils/adminAuth');
 const { Team, User, Admin, Point, Task } = require('../../models');
 
 //GET all teams
@@ -72,12 +73,12 @@ router.get('/:id', (req, res) => {
 });
 
 //POST a new team
-router.post('/', (req, res) => {
+router.post('/', withAdminAuth, (req, res) => {
     //expects {team_name: "name", team_description: "my team", admin_id: 1}
     Team.create({
         team_name: req.body.team_name,
         team_description: req.body.team_description,
-        admin_id: req.body.admin_id
+        admin_id: req.session.admin_id
     })
     .then(dbTeamData => res.json(dbTeamData))
     .catch(err => {
@@ -87,7 +88,7 @@ router.post('/', (req, res) => {
 });
 
 //PUT add a point to a team /api/teams/addPoint
-router.put('/addPoint', (req, res) => {
+router.put('/addPoint', withAdminAuth, (req, res) => {
     if (req.session) {
         Team.addPoint({...req.body, admin_id: req.session.admin_id}, {Point, Task, Admin})
         .then(updatedTeamData => res.json(updatedTeamData))
@@ -99,7 +100,7 @@ router.put('/addPoint', (req, res) => {
 });
 
 //PUT edit team_name
-router.put('/:id', (req, res) => {
+router.put('/:id', withAdminAuth, (req, res) => {
     Team.update(
       {
         team_name: req.body.team_name
@@ -124,7 +125,7 @@ router.put('/:id', (req, res) => {
   });
 
 //DELETE delete a team
-router.delete('/:id', (req, res) => {
+router.delete('/:id', withAdminAuth, (req, res) => {
     Team.destroy({
         where: {
             id: req.params.id
