@@ -35,7 +35,7 @@ router.get('/', (req, res) => {
 });
 
 //GET single team page
-router.get('/team/:id', withAuth, (req, res) => {
+router.get('/team/:id', (req, res) => {
     Team.findOne({
         where: {
             id: req.params.id
