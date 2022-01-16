@@ -26,6 +26,11 @@ html {
   margin-top: 200px;
 }
 
+.page-title {
+  text-decoration: none;
+  color: #7e89eb;
+  font-size: 50px;
+}
 /*sign-in and up forms*/
 
 .signup-form {
@@ -34,6 +39,11 @@ html {
   margin: auto;
   background-color: white;
   border-radius: 3px;
+}
+
+.page-login {
+  text-decoration: none;
+  color: #7e89eb;
 }
 
 .login-form {
