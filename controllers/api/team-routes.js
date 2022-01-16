@@ -18,6 +18,10 @@ router.get('/', (req, res) => {
             {
                 model: Admin,
                 attributes: ['admin_name']
+            },
+            {
+                model: User,
+                attributes: ['username']
             }
         ]
     })
@@ -36,6 +40,14 @@ router.get('/:id', (req, res) => {
         },
         attributes: ['id', 'team_name', 'team_description', 'created_at', [sequelize.literal('(SELECT COUNT(*) FROM point WHERE team.id = point.team_id)'), 'point_count']],
         include: [
+            {
+                model: Task,
+                attributes: ['id', 'task_text', 'admin_id', 'team_id', 'created_at'],
+                include: {
+                    model: Admin,
+                    attributes: ['admin_name']
+                }
+            },
             {
                 model: Admin,
                 attributes: ['admin_name']
@@ -76,29 +88,14 @@ router.post('/', (req, res) => {
 
 //PUT add a point to a team /api/teams/addPoint
 router.put('/addPoint', (req, res) => {
-    Point.create({
-        admin_id: req.body.admin_id,
-        team_id: req.body.team_id
-    })
-    .then(() => {
-        return Team.findOne({
-            where: {
-                id: req.body.team_id
-            },
-            attributes: [
-                'id',
-                'team_name',
-                'team_description',
-                'created_at',
-                [sequelize.literal('(SELECT COUNT(*) FROM point WHERE team.id = point.team_id)'), 'point_count']
-            ]
-        })
-    })
-    .then(dbTeamData=> res.json(dbTeamData))
-    .catch(err => {
-        console.log(err);
-        res.status(400).json(err);
-    });
+    if (req.session) {
+        Team.addPoint({...req.body, admin_id: req.session.admin_id}, {Point, Task, Admin})
+        .then(updatedTeamData => res.json(updatedTeamData))
+        .catch(err => {
+            console.log(err);
+            res.status(500).json(err);
+        });
+    }
 });
 
 //PUT edit team_name
