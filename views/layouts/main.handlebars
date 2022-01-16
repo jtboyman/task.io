@@ -1,31 +1,52 @@
-<!DOCTYPE html>
 <html lang="en">
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Task.io</title>
-  <link rel="stylesheet" href="/stylesheets/style.css">
-</head>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Task.io</title>
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+  </head>
 
-<body>
-  <div class="wrapper">
-    <header>
-      <h1>
-        <a href="/">Task.io</a>
-      </h1>
-      <nav>
-          <a href="/login">Login</a>
-      </nav>
-    </header>
-    <main>
-      {{{ body }}}
-    </main>
-    <footer>
-      Stay busy! :)
-    </footer>
-  </div>
+  <body>
 
-</body>
+    <div class="wrapper">
+
+      <header>
+
+        <nav>
+          {{#if loggedIn}}
+            <a href="/dashboard">dashboard</a>
+            <button id="logout" class="btn-no-style">logout</button>
+            <div>Currently Logged in as: {{user.username}}</div>
+            You have
+            <div id="points">0</div>
+            Points
+
+          {{/if}}
+
+        </nav>
+      </header>
+      <div class="image-container">
+        <div class="inner-container">
+          <h1 class="welcome-text">
+            Welcome to
+            <a href="/" class="page-title">Task.io</a>
+          </h1>
+          <h2>
+
+            <a href="/login" class="page-login">Start Tasking</a>
+          </h2>
+
+        </div>
+
+      </div>
+
+      <main>
+        {{{body}}}
+      </main>
+
+    </div>
+    <script src="/javascript/logout.js"></script>
+  </body>
 
 </html>
