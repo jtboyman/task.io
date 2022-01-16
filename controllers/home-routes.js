@@ -35,13 +35,55 @@ router.get('/', (req, res) => {
     });
 });
 
+//GET single team page
+router.get('/team/:id', (req, res) => {
+    Team.findOne({
+        where: {
+            id: req.params.id
+        },
+        attributes: ['id', 'team_name', 'team_description', 'created_at', [sequelize.literal('(SELECT COUNT(*) FROM point WHERE team.id = point.team_id)'), 'point_count']],
+        include: [
+            {
+                model: Task,
+                attributes: ['id', 'task_text', 'admin_id', 'team_id', 'created_at'],
+                include: {
+                    model: Admin,
+                    attributes: ['admin_name']
+                }
+            },
+            {
+                model: Admin,
+                attributes: ['admin_name']
+            },
+            {
+                model: User,
+                attributes: ['username']
+            }
+        ]
+    })
+    .then(dbTeamData => {
+        if (!dbTeamData) {
+            res.status(404).json({message: 'No team found with this id!'});
+            return;
+        }
+
+        const team = dbTeamData.get({plain:true});
+
+        res.render('single-team', {team});
+    })
+    .catch(err => {
+        console.log(err);
+        res.status(500).json(err);
+    });
+});
+
 //GET render login page
 router.get('/login', (req, res) => {
 
-    if (req.session.loggedIn && req.session.admin_id) {
+    if (req.session.loggedInAdmin) {
         res.redirect('/'); //admin will want to go to dashboard
         return;
-      } else if (req.session.loggedIn && req.session.user_id) {
+      } else if (req.session.loggedInUser) {
           res.redirect('/'); //user will want to go to group page
       }
     

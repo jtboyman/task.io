@@ -1,0 +1,35 @@
+<article class="post">
+    <div class="title">
+        <p>{{team.team_name}}</p>
+        <p>{{team.team_description}}</p>
+    </div>
+    <div class="meta">
+        {{team.point_count}} point(s) by {{admin.admin_name}} on {{team.created_at}}
+
+        <p>{{tasks.length}} task(s)</p>
+    </div>
+</article>
+
+<form>
+    <div>
+        <textarea></textarea>
+    </div>
+
+    <div>
+        <button type="submit">add task</button>
+        <button type="button">award point</button>
+    </div>
+</form>
+
+<div>
+    {{#each team.tasks}}
+    <section>
+        <div>
+            {{admin.admin_name}} on {{created_at}}
+        </div>
+        <div>
+            {{task_text}}
+        </div>
+    </section>
+    {{/each}}
+</div>

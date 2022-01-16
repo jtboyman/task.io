@@ -14,16 +14,9 @@
       <header>
 
         <nav>
-          {{#if loggedIn}}
-            <a href="/dashboard">dashboard</a>
-            <button id="logout" class="btn-no-style">logout</button>
-            <div>Currently Logged in as: {{user.username}}</div>
-            You have
-            <div id="points">0</div>
-            Points
-
-          {{/if}}
-
+            <button id="user-logout">logout</button>
+            <button id="admin-logout">a logout</button>
+            <a href="/login">login</a>
         </nav>
       </header>
       <div class="image-container">

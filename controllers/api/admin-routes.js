@@ -60,7 +60,7 @@ router.get('/:id', (req, res) => {
         req.session.save(() => {
             req.session.admin_id = dbAdminData.id;
             req.session.admin_name = dbAdminData.admin_name;
-            req.session.loggedIn = true;
+            req.session.loggedInAdmin = true;
 
             res.json(dbAdminData);
         });
@@ -93,11 +93,22 @@ router.post('/login', (req, res) => {
       req.session.save(()=> {
           req.session.admin_id = dbAdminData.id;
           req.session.admin_name = dbAdminData.admin_name;
-          req.session.loggedIn = true;
+          req.session.loggedInAdmin = true;
   
       res.json({ admin: dbAdminData, message: 'You are now logged in!' });
       });
     });
+  });
+
+//log out of the site
+router.post("/logout", (req, res) => {
+    if (req.session.loggedInAdmin) {
+      req.session.destroy(() => {
+        res.status(204).end();
+      });
+    } else {
+      res.status(404).end();
+    }
   });
 
 // PUT /api/admins/1
