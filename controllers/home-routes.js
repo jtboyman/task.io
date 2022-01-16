@@ -25,9 +25,7 @@ router.get('/', (req, res) => {
     .then(dbTeamData => {
         const teams = dbTeamData.map(team => team.get({plain: true}));
 
-        res.render('homepage', {
-            teams
-        });
+        res.render('homepage', {teams, loggedIn: req.session.loggedIn, loggedInAdmin: req.session.loggedInAdmin, loggedInUser: req.session.loggedInUser});
     })
     .catch(err => {
         console.log(err);
@@ -69,7 +67,7 @@ router.get('/team/:id', (req, res) => {
 
         const team = dbTeamData.get({plain:true});
 
-        res.render('single-team', {team});
+        res.render('single-team', {team, loggedIn: req.session.loggedIn, loggedInAdmin: req.session.loggedInAdmin, loggedInUser: req.session.loggedInUser});
     })
     .catch(err => {
         console.log(err);

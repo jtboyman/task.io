@@ -61,6 +61,7 @@ router.get('/:id', (req, res) => {
             req.session.admin_id = dbAdminData.id;
             req.session.admin_name = dbAdminData.admin_name;
             req.session.loggedInAdmin = true;
+            req.session.loggedIn = true;
 
             res.json(dbAdminData);
         });
@@ -94,6 +95,7 @@ router.post('/login', (req, res) => {
           req.session.admin_id = dbAdminData.id;
           req.session.admin_name = dbAdminData.admin_name;
           req.session.loggedInAdmin = true;
+          req.session.loggedIn = true;
   
       res.json({ admin: dbAdminData, message: 'You are now logged in!' });
       });

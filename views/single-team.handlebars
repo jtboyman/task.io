@@ -10,9 +10,10 @@
     </div>
 </article>
 
-<form>
+{{#if loggedInAdmin}}
+<form id="task-form">
     <div>
-        <textarea></textarea>
+        <textarea name="task-text"></textarea>
     </div>
 
     <div>
@@ -20,6 +21,7 @@
         <button type="button" id="add-point-btn">award point</button>
     </div>
 </form>
+{{/if}}
 
 <div>
     {{#each team.tasks}}
@@ -34,5 +36,7 @@
     {{/each}}
 </div>
 
+{{#if loggedInAdmin}}
 <script src="/javascript/task.js"></script>
 <script src="/javascript/addPoint.js"></script>
+{{/if}}

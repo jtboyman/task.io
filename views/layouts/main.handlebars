@@ -14,9 +14,15 @@
       <header>
 
         <nav>
+            {{#if loggedInUser}}
             <button id="user-logout">logout</button>
+            {{/if}}
+            {{#if loggedInAdmin}}
             <button id="admin-logout">a logout</button>
+            {{/if}}
+            {{#unless loggedIn}}
             <a href="/login">login</a>
+            {{/unless}}
         </nav>
       </header>
       <div class="image-container">
@@ -39,7 +45,12 @@
       </main>
 
     </div>
-    <script src="/javascript/logout.js"></script>
+    {{#if loggedInAdmin}}
+    <script src="/javascript/logoutAdmin.js"></script>
+    {{/if}}
+    {{#if loggedInUser}}
+    <script src="/javascript/logoutUser.js"></script>
+    {{/if}}
   </body>
 
 </html>
