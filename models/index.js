@@ -1,69 +1,59 @@
-//this file holds all the models
 const User = require('./User');
-const Group = require('./Group');
+const Admin = require('./Admin');
+const Team = require('./Team');
 const Point = require('./Point');
-const Comment = require('./Comment');
 const Task = require('./Task');
 
-Group.hasMany(User, {
-    foreignKey: 'group_id'
+//realte admins to teams they create
+Admin.hasMany(Team, {
+    foreignKey: 'admin_id'
 });
 
-User.belongsTo(Group, {
-    foreignKey: 'group_id'
+Team.belongsTo(Admin, {
+    foreignKey: 'admin_id'
 });
 
-User.hasMany(Point, {
-    foreignKey: 'user_id'
+//realte points to the admins that make them and relate teams to the points they earn
+Point.belongsTo(Admin, {
+    foreignKey: 'admin_id'
 });
 
-Point.belongsTo(User, {
-    foreignKey: 'user_id'
+Point.belongsTo(Team, {
+    foreignKey: 'team_id'
 });
 
-Group.hasMany(Task, {
-    foreignKey: "group_id"
+Admin.hasMany(Point, {
+    foreignKey: 'admin_id'
 });
 
-Task.belongsTo(Group, {
-    foreignKey: "group_id"
+Team.hasMany(Point, {
+    foreignKey: 'team_id'
 });
 
-
-//comment stuff - we didnt need to specify comment as a through bc
-//we don't need to access Post through Comment, we just want to see the user's
-//comment and which post it was for
-Comment.belongsTo(User, {
-    foreignKey: 'user_id'
+//relate tasks to admin and teams so admins can post the tasks into the  teams
+Task.belongsTo(Admin, {
+    foreignKey: 'admin_id'
 });
 
-Comment.belongsTo(Group, {
-    foreignKey: 'group_id'
+Task.belongsTo(Team, {
+    foreignKey: 'team_id'
 });
 
-User.hasMany(Comment, {
-    foreignKey: 'user_id'
+Admin.hasMany(Task, {
+    foreignKey: 'admin_id'
 });
 
-Group.hasMany(Comment, {
-    foreignKey: 'group_id'
+Team.hasMany(Task, {
+    foreignKey: 'team_id'
 });
 
-module.exports = {User, Group, Point, Comment, Task};
-
-/* vote stuff lol idk
-//the votes association to connect Post and User through them
-//these two methods allow the models to query each other's info in the context
-//of a vote (we can see a single user's votes, or all the users that voted
-//on a single post!)
-User.belongsToMany(Post, {
-    through: Point,
-    as: 'voted_posts', //name of Point model displayed as this when queried
-    foreignKey: 'user_id' //the foreign key is in Point
+// user in groups lol  
+User.belongsTo(Team, {
+    foreignKey: 'team_id'
 });
 
-Post.belongsToMany(User, {
-    through: Point,
-    as: 'voted_posts',
-    foreignKey: 'post_id' //user_id and post_id pairings must be unique, so single user cannot vote multiple times on one post (foreign key constraint)
-});*/
+Team.hasMany(User, {
+    foreignKey: 'team_id'
+});
+
+module.exports = { User, Admin, Team, Point, Task };

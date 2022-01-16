@@ -1,80 +1,107 @@
-//to toggle the login/signup form
-var x = document.getElementById("log");
-var y = document.getElementById("sign");
-var z = document.getElementById("btn");
+//admin signup
+async function adminSignupFormHandler(event) {
+    event.preventDefault();
+    const admin_name = document.querySelector('#admin-username-signup').value.trim();
+    const email = document.querySelector('#admin-email-signup').value.trim();
+    const password = document.querySelector('#admin-password-signup').value.trim();
+  
+    if (admin_name && email && password) {
+      const response = await fetch('/api/admins', {
+        method: 'post',
+        body: JSON.stringify({
+          admin_name,
+          email,
+          password
+        }),
+        headers: { 'Content-Type': 'application/json' }
+      });
 
-function register() {
-  x.style.left = "-400px";
-  y.style.left = "50px";
-  z.style.left = "110px";
-}
-
-function login() {
-  x.style.left = "-50px";
-  y.style.left = "450px";
-  z.style.left = "0px";
-}
-
-//static file for the logic on the login page
-
-async function signupFormHandler(event) {
-  //async to wrap function
-  event.preventDefault();
-
-  const username = document.querySelector("#username-signup").value.trim();
-  const email = document.querySelector("#email-signup").value.trim();
-  const password = document.querySelector("#password-signup").value.trim();
-
-  if (username && email && password) {
-    //await assigned to variable, wont need .then to tell code what to do after promise completes
-    const response = await fetch("/api/users", {
-      //await before the promise
-      method: "post",
-      body: JSON.stringify({
-        username,
-        email,
-        password,
-      }),
-      headers: { "Content-Type": "application/json" },
-    });
-
-    //check the response status (replaces .catch w/ async/await)
-    if (response.ok) {
-      console.log("Success!");
-    } else {
-      alert(response.statusText);
+      if (response.ok) {
+          console.log("Success!");
+      } else {
+          alert(response.statusText);
+      }
     }
   }
-}
 
-async function loginFormHandler(event) {
-  event.preventDefault();
+//admin login
+async function adminLoginFormHandler(event) {
+    event.preventDefault();
+    const email = document.querySelector('#admin-email-login').value.trim();
+    const password = document.querySelector('#admin-password-login').value.trim();
+  
+    if (email && password) {
+      const response = await fetch('/api/admins/login', {
+        method: 'post',
+        body: JSON.stringify({
+          email,
+          password
+        }),
+        headers: { 'Content-Type': 'application/json' }
+      });
 
-  const email = document.querySelector("#email-login").value.trim();
-  const password = document.querySelector("#password-login").value.trim();
-
-  if (email && password) {
-    const response = await fetch("/api/users/login", {
-      //request different
-      method: "post",
-      body: JSON.stringify({
-        email,
-        password,
-      }),
-      headers: { "Content-Type": "application/json" },
-    });
-
-    if (response.ok) {
-      document.location.replace("/dashboard"); //take us dashboard
-    } else {
-      alert(response.statusText); //tell u it messed up
+      if (response.ok) {
+          document.location.replace('/');
+      } else {
+          alert(response.statusText);
+      }
     }
   }
-}
 
-document
-  .querySelector(".signup-form")
-  .addEventListener("submit", signupFormHandler); //remember no () here
-document
-  .querySelector(".login-form")
-  .addEventListener("submit", loginFormHandler);
+//user signup
+async function userSignupFormHandler(event) {
+    event.preventDefault();
+    const username = document.querySelector('#user-username-signup').value.trim();
+    const email = document.querySelector('#user-email-signup').value.trim();
+    const password = document.querySelector('#user-password-signup').value.trim();
+    const team_id = document.querySelector('#user-team-id').value.trim();
+  
+    if (username && email && password && team_id) {
+      const response = await fetch('/api/users', {
+        method: 'post',
+        body: JSON.stringify({
+          username,
+          email,
+          password,
+          team_id
+        }),
+        headers: { 'Content-Type': 'application/json' }
+      });
+
+      if (response.ok) {
+          console.log("Success!");
+      } else {
+          alert(response.statusText);
+      }
+    }
+  }
+
+//user login
+async function userLoginFormHandler(event) {
+    event.preventDefault();
+    const email = document.querySelector('#user-email-login').value.trim();
+    const password = document.querySelector('#user-password-login').value.trim();
+  
+    if (email && password) {
+      const response = await fetch('/api/users/login', {
+        method: 'post',
+        body: JSON.stringify({
+          email,
+          password
+        }),
+        headers: { 'Content-Type': 'application/json' }
+      });
+
+      if (response.ok) {
+          document.location.replace('/');
+      } else {
+          alert(response.statusText);
+      }
+    }
+  }
+
+
+  document.querySelector('#admin-signup-form').addEventListener('submit', adminSignupFormHandler);
+  document.querySelector('#user-signup-form').addEventListener('submit', userSignupFormHandler);
+  document.querySelector('#admin-login-form').addEventListener('submit', adminLoginFormHandler);
+  document.querySelector('#user-login-form').addEventListener('submit', userLoginFormHandler);

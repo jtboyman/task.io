@@ -7,32 +7,30 @@ Task.init(
   {
     id: {
       type: DataTypes.INTEGER,
+      allowNull: false,
       primaryKey: true,
       autoIncrement: true
     },
-    task_name: {
+    task_text: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        //at least 1 character long
         len: [1]
       }
     },
-    task_description: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        //at least 1 character long
-        len: [1]
+    admin_id: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: 'admin',
+        key: 'id'
       }
     },
-    group_id: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        references: {
-            model: 'group',
-            key: 'id'
-        }
+    team_id: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: 'team',
+        key: 'id'
+      }
     }
   },
   {

@@ -10,13 +10,19 @@ Point.init(
       primaryKey: true,
       autoIncrement: true
     },
-    user_id: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        references: {
-            model: 'user',
-            key: 'id'
-        }
+    admin_id: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: 'admin',
+        key: 'id'
+      }
+    },
+    team_id: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: 'team',
+        key: 'id'
+      }
     }
   },
   {
