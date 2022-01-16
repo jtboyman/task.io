@@ -1,14 +1,4 @@
-<article class="post">
-    <div class="title">
-        <p>{{team.team_name}}</p>
-        <p>{{team.team_description}}</p>
-    </div>
-    <div class="meta">
-        {{team.point_count}} point(s) by {{admin.admin_name}} on {{team.created_at}}
-
-        <p>{{tasks.length}} task(s)</p>
-    </div>
-</article>
+{{> team-info team}}
 
 {{#if loggedInAdmin}}
 <form id="task-form">
@@ -23,18 +13,7 @@
 </form>
 {{/if}}
 
-<div>
-    {{#each team.tasks}}
-    <section>
-        <div>
-            {{admin.admin_name}} on {{created_at}}
-        </div>
-        <div>
-            {{task_text}}
-        </div>
-    </section>
-    {{/each}}
-</div>
+{{> tasks team.tasks}}
 
 {{#if loggedInAdmin}}
 <script src="/javascript/task.js"></script>
