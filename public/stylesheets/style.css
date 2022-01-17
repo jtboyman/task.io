@@ -2,6 +2,8 @@ body,
 html {
   margin: 0;
   height: 100%;
+  font-family: "Roboto", sans-serif;
+  color: black;
 }
 
 /*welcome page styling start */
@@ -35,28 +37,36 @@ html {
 
 .signup-form {
   width: 360px;
-  height: 620px;
-  margin: auto;
-  background-color: white;
-  border-radius: 3px;
+  height: 400px;
+  margin: 2rem;
+  background-color: rgb(201, 201, 201);
+  border-radius: 10px;
+  padding: 2rem;
+  margin-left: 35%;
 }
 
 .page-login {
   text-decoration: none;
   color: #7e89eb;
+  font-size: 40px;
+  cursor: pointer;
 }
 
 .login-form {
   width: 360px;
-  height: 620px;
-  margin: auto;
-  background-color: white;
-  border-radius: 3px;
+  height: 300px;
+  margin: 2rem;
+  background-color: rgb(201, 201, 201);
+  border-radius: 10px;
+  padding: 2rem;
+  margin-left: 35%;
 }
 
 .sign-form-title {
   text-align: center;
   padding-top: 15px;
+  font-size: 30px;
+  justify-content: center;
 }
 
 form {
@@ -69,21 +79,159 @@ form label {
   font-size: 18px;
 }
 
+input:focus {
+  border: 3px solid #555;
+}
 form input {
   width: 100%;
-  padding: 7px;
+  padding: 12px 20px;
+  margin: 15px 0;
   border: none;
   border: 1px solid black;
-  border-radius: 6px;
+  border-radius: 10px;
   outline: none;
+  justify-content: center;
 }
 
 button {
-  width: 320px;
+  width: 100%;
   height: 35px;
   margin-top: 20px;
   border: none;
   background-color: #7e89eb;
   color: white;
   font-size: 18px;
+}
+
+.center {
+  position: center;
+  font-size: 20px;
+  text-align: center;
+}
+/*Admin Home page */
+
+.team-create {
+  font-family: "Roboto", sans-serif;
+  text-align: left;
+  margin-left: 50px;
+}
+.btn {
+  cursor: pointer;
+}
+
+.team-description {
+  height: 150px;
+}
+
+/* Team-info*/
+
+/* team-home*/
+
+.team-create {
+  font-weight: bold;
+  color: black;
+  font-size: 25px;
+}
+
+/* admin-home*/
+.edit-link {
+  font-size: 25px;
+}
+
+.your-teams {
+  font-size: 30px;
+  font-weight: bolder;
+}
+
+.teams-section {
+  float: right;
+  padding: 0;
+  margin-right: 50px;
+}
+
+.new-team-form {
+  width: 360px;
+  height: 350px;
+  margin: 2rem;
+  background-color: rgb(201, 201, 201);
+  border-radius: 10px;
+  padding: 2rem;
+}
+
+.team-name {
+  color: black;
+  font-weight: 700;
+}
+
+.description-team {
+  color: black;
+  font-weight: 700;
+}
+
+/* edit team styles*/
+
+.edit-name {
+  font-weight: 700;
+  color: black;
+  font-size: 30px;
+  justify-content: center;
+  text-align: center;
+}
+
+.team-form {
+  width: 360px;
+  height: 300px;
+  margin: 2rem;
+  background-color: rgb(201, 201, 201);
+  border-radius: 10px;
+  padding: 2rem;
+  margin-left: 35%;
+}
+
+.task-form {
+  width: 360px;
+  height: 300px;
+  margin: 2rem;
+  background-color: rgb(201, 201, 201);
+  border-radius: 10px;
+  padding: 2rem;
+  margin-left: 35%;
+}
+
+.task-form textarea {
+  width: 50%;
+  height: 150%;
+  width: 100%;
+  height: 150px;
+  padding: 12px 20px;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  background-color: #f8f8f8;
+  resize: none;
+}
+
+#save-team-btn {
+  width: 100%;
+  height: 35px;
+  margin-top: 20px;
+  border: none;
+}
+
+.delete-team-btn {
+  width: 100%;
+  height: 35px;
+  margin-top: 20px;
+  border: none;
+}
+
+.adding-task {
+  width: 100%;
+  height: 35px;
+  margin-top: 20px;
+  border: none;
+}
+
+.descript-team {
+  font-size: 20px;
 }

@@ -5,6 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Task.io</title>
     <link rel="stylesheet" href="/stylesheets/style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css"
+    />
   </head>
 
   <body>
@@ -56,10 +66,10 @@
 
     </div>
     {{#if loggedInAdmin}}
-    <script src="/javascript/logoutAdmin.js"></script>
+      <script src="/javascript/logoutAdmin.js"></script>
     {{/if}}
     {{#if loggedInUser}}
-    <script src="/javascript/logoutUser.js"></script>
+      <script src="/javascript/logoutUser.js"></script>
     {{/if}}
   </body>
 

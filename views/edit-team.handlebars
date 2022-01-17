@@ -1,12 +1,14 @@
 <article>
   <a href="/adminHome"> &larr; Back to Admin Profile</a>
-  <h2>
+  <h2 class="edit-name">
     Edit Team Name
   </h2>
+
+  <div class="columns ">
   <form class="team-form">
     <div>
       <input name="team-name" type="text" value="{{team.team_name}}" />
-      <p>{{team.team_description}}</p>
+      <p class="descript-team">{{team.team_description}}</p>
     </div>
     <div>
       {{team.point_count}} {{format_plural "point" team.point_count}}
@@ -17,17 +19,18 @@
     <button type="button" class="delete-team-btn" id="delete-team-btn">Delete Team</button>
   </form>
 </article>
-
+<div class="column">
 <form class="task-form">
   <div>
-    <textarea name="task-text"></textarea>
+    <textarea placeholder="Write Something..." name="task-text"></textarea>
   </div>
 
   <div>
-    <button type="submit">add task</button>
+    <button class="adding-task" type="submit">Add Task</button>
   </div>
 </form>
-
+</div>
+</div>
 {{> tasks team.tasks}}
 
 <script src="/javascript/edit-team.js"></script>

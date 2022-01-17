@@ -1,23 +1,32 @@
+
+<div class="form-holder">
 <section>
-  <h2>Create New Team</h2>
+  
 
   <form class="new-team-form" id="new-team-form">
+    <h2 class="team-create">Create New Team</h2>
     <div>
-      <label for="team-name">Team Name</label>
+      <label class="team-name" for="team-name">Team Name</label>
       <input type="text" id="team-name" name="team-name" />
     </div>
     <div>
-      <label for="team-description">Team Description</label>
+      <label class="description-team" for="team-description">Team Description</label>
       <input id="team-description" name="team-description" />
     </div>
     <button type="submit" class="btn">Create</button>
   </form>
 </section>
+</div>
 
+<div class="teams-holder">
 {{#if teams.length}}
-<section>
-  <h2>Your Teams</h2>
-  <ol>
+
+
+<section class="teams-section">
+  <h2 class="your-teams">Your Teams</h2>
+  <div class="columns is-centered"></div>
+  <div class="column">
+  <ol type="1">
     {{#each teams as |team|}}
     <li>
       {{> team-info team}}
@@ -26,6 +35,10 @@
     {{/each}}
   </ol>
 </section>
+</div>
 {{/if}}
+</div>
+</div>
+</div>
 
 <script src="/javascript/add-team.js"></script>
