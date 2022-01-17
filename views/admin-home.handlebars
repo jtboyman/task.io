@@ -1,5 +1,7 @@
+
+<div class="form-holder">
 <section>
-  <h2>Create New Team</h2>
+  <h2 class="team-create">Create New Team</h2>
 
   <form class="new-team-form" id="new-team-form">
     <div>
@@ -13,8 +15,11 @@
     <button type="submit" class="btn">Create</button>
   </form>
 </section>
+</div>
 
+<div class="teams-holder">
 {{#if teams.length}}
+
 <section>
   <h2>Your Teams</h2>
   <ol>
@@ -26,6 +31,8 @@
     {{/each}}
   </ol>
 </section>
+</div>
 {{/if}}
+</div>
 
 <script src="/javascript/add-team.js"></script>

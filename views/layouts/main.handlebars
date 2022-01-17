@@ -5,6 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Task.io</title>
     <link rel="stylesheet" href="/stylesheets/style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto&display=swap"
+      rel="stylesheet"
+    />
   </head>
 
   <body>
@@ -14,15 +20,15 @@
       <header>
 
         <nav>
-            {{#if loggedInUser}}
+          {{#if loggedInUser}}
             <button id="user-logout">logout</button>
-            {{/if}}
-            {{#if loggedInAdmin}}
-            <button id="admin-logout">a logout</button>
-            {{/if}}
-            {{#unless loggedIn}}
+          {{/if}}
+          {{#if loggedInAdmin}}
+            <button id="admin-logout"> Logout</button>
+          {{/if}}
+          {{#unless loggedIn}}
             <a href="/login">login</a>
-            {{/unless}}
+          {{/unless}}
         </nav>
       </header>
       <div class="image-container">
@@ -46,10 +52,10 @@
 
     </div>
     {{#if loggedInAdmin}}
-    <script src="/javascript/logoutAdmin.js"></script>
+      <script src="/javascript/logoutAdmin.js"></script>
     {{/if}}
     {{#if loggedInUser}}
-    <script src="/javascript/logoutUser.js"></script>
+      <script src="/javascript/logoutUser.js"></script>
     {{/if}}
   </body>
 
