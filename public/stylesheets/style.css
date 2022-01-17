@@ -3,6 +3,7 @@ html {
   margin: 0;
   height: 100%;
   font-family: "Roboto", sans-serif;
+  color: black;
 }
 
 /*welcome page styling start */
@@ -121,7 +122,46 @@ button {
 }
 
 /* Team-info*/
+.column {
+  margin-left: 20px;
+}
 
-.columns {
-  justify-content: center;
+/* team-home*/
+
+.team-create {
+  font-weight: bold;
+}
+
+/* admin-home*/
+.edit-link {
+  font-size: 25px;
+}
+
+.your-teams {
+  font-size: 30px;
+  font-weight: bolder;
+}
+
+.teams-section {
+  float: right;
+  margin-left: 0;
+}
+
+.new-team-form {
+  width: 360px;
+  height: 350px;
+  margin: 2rem;
+  background-color: rgb(201, 201, 201);
+  border-radius: 10px;
+  padding: 2rem;
+}
+
+.team-name {
+  color: black;
+  font-weight: 700;
+}
+
+.description-team {
+  color: black;
+  font-weight: 700;
 }
