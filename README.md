@@ -15,7 +15,7 @@
   ## Description:
   Task.io is a task management application suited for parents and their children or teachers and their students, but adaptable to various situations. It allows admins to create teams and tasks for the teams to complete, then award points for the completion of these tasks. Users cna login, view tasks for their team, and view their points. The goal of Task.io is to gamify tasks and incentivize their completion with points.
   
- placeholder link
+ [Task.io](https://taskio-project2323.herokuapp.com/)
 
   ## Installation:
   The app is deployed to heroku at above link. Users can navigate the user-friendly interface to create an account and get started.
