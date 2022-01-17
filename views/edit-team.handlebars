@@ -11,7 +11,7 @@
       <p class="descript-team">{{team.team_description}}</p>
     </div>
     <div>
-      {{team.point_count}} {{format_plural "point" team.point_count}} by you on {{format_date team.created_at}}
+      {{team.point_count}} {{format_plural "point" team.point_count}}
       |
       <a href="/team/{{team.id}}">{{team.tasks.length}} {{format_plural "task" team.tasks.length}}</a>
     </div>

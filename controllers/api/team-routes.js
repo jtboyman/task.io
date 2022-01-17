@@ -22,7 +22,7 @@ router.get('/', (req, res) => {
             },
             {
                 model: User,
-                attributes: ['username']
+                attributes: ['username', 'team_id']
             }
         ]
     })
@@ -55,7 +55,7 @@ router.get('/:id', (req, res) => {
             }, //check and see if u need array lol
             {
                 model: User,
-                attributes: ['username']
+                attributes: ['username', 'team_id']
             }
         ]
     })
