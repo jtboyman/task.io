@@ -120,4 +120,8 @@ button {
   height: 150px;
 }
 
-/* login and signup forms*/
+/* Team-info*/
+
+.columns {
+  justify-content: center;
+}
