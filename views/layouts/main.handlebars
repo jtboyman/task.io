@@ -14,14 +14,21 @@
       <header>
 
         <nav>
+            {{#if loggedInAdmin}}
+            <a href="/adminHome">Admin Profile</a>
+            {{/if}}
             {{#if loggedInUser}}
-            <button id="user-logout">logout</button>
+            <a href="/team/{{team_id}}">My Team</a>
+            {{/if}}
+            <a href="/">Browse All Teams</a>
+            {{#if loggedInUser}}
+            <button id="user-logout">Logout</button>
             {{/if}}
             {{#if loggedInAdmin}}
-            <button id="admin-logout">a logout</button>
+            <button id="admin-logout">Logout</button>
             {{/if}}
             {{#unless loggedIn}}
-            <a href="/login">login</a>
+            <a href="/login">Login</a>
             {{/unless}}
         </nav>
       </header>
@@ -43,6 +50,9 @@
       <main>
         {{{body}}}
       </main>
+      <footer>
+          Stay busy! :)
+      </footer>
 
     </div>
     {{#if loggedInAdmin}}

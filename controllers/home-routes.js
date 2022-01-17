@@ -20,13 +20,17 @@ router.get('/', (req, res) => {
             {
                 model: Admin,
                 attributes: ['admin_name']
+            },
+            {
+                model: User,
+                attributes: ['username', 'team_id']
             }
         ]
     })
     .then(dbTeamData => {
         const teams = dbTeamData.map(team => team.get({plain: true}));
 
-        res.render('homepage', {teams, loggedIn: req.session.loggedIn, loggedInAdmin: req.session.loggedInAdmin, loggedInUser: req.session.loggedInUser});
+        res.render('homepage', {teams, loggedIn: req.session.loggedIn, loggedInAdmin: req.session.loggedInAdmin, loggedInUser: req.session.loggedInUser, team_id: req.session.team_id});
     })
     .catch(err => {
         console.log(err);
@@ -56,7 +60,7 @@ router.get('/team/:id', (req, res) => {
             },
             {
                 model: User,
-                attributes: ['username']
+                attributes: ['username', 'team_id']
             }
         ]
     })
@@ -68,7 +72,7 @@ router.get('/team/:id', (req, res) => {
 
         const team = dbTeamData.get({plain:true});
 
-        res.render('single-team', {team, loggedIn: req.session.loggedIn, loggedInAdmin: req.session.loggedInAdmin, loggedInUser: req.session.loggedInUser});
+        res.render('single-team', {team, loggedIn: req.session.loggedIn, loggedInAdmin: req.session.loggedInAdmin, loggedInUser: req.session.loggedInUser, team_id: req.session.team_id});
     })
     .catch(err => {
         console.log(err);
