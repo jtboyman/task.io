@@ -65,6 +65,8 @@ html {
 .sign-form-title {
   text-align: center;
   padding-top: 15px;
+  font-size: 30px;
+  justify-content: center;
 }
 
 form {
@@ -122,14 +124,13 @@ button {
 }
 
 /* Team-info*/
-.column {
-  margin-left: 20px;
-}
 
 /* team-home*/
 
 .team-create {
   font-weight: bold;
+  color: black;
+  font-size: 25px;
 }
 
 /* admin-home*/
@@ -144,7 +145,8 @@ button {
 
 .teams-section {
   float: right;
-  margin-left: 0;
+  padding: 0;
+  margin-right: 50px;
 }
 
 .new-team-form {
@@ -164,4 +166,72 @@ button {
 .description-team {
   color: black;
   font-weight: 700;
+}
+
+/* edit team styles*/
+
+.edit-name {
+  font-weight: 700;
+  color: black;
+  font-size: 30px;
+  justify-content: center;
+  text-align: center;
+}
+
+.team-form {
+  width: 360px;
+  height: 300px;
+  margin: 2rem;
+  background-color: rgb(201, 201, 201);
+  border-radius: 10px;
+  padding: 2rem;
+  margin-left: 35%;
+}
+
+.task-form {
+  width: 360px;
+  height: 300px;
+  margin: 2rem;
+  background-color: rgb(201, 201, 201);
+  border-radius: 10px;
+  padding: 2rem;
+  margin-left: 35%;
+}
+
+.task-form textarea {
+  width: 50%;
+  height: 150%;
+  width: 100%;
+  height: 150px;
+  padding: 12px 20px;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  background-color: #f8f8f8;
+  resize: none;
+}
+
+#save-team-btn {
+  width: 100%;
+  height: 35px;
+  margin-top: 20px;
+  border: none;
+}
+
+.delete-team-btn {
+  width: 100%;
+  height: 35px;
+  margin-top: 20px;
+  border: none;
+}
+
+.adding-task {
+  width: 100%;
+  height: 35px;
+  margin-top: 20px;
+  border: none;
+}
+
+.descript-team {
+  font-size: 20px;
 }
