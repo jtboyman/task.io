@@ -22,7 +22,7 @@
 
   ## Usage:
   To get started as an admin, simply sign up with a username, password, and email address. You will be able to create groups from your admin profile and assign tasks from team pages. Users signup with a team id number they can get from their team leader, then navigate the site with posting and team creation capabilities restricted. 
-    ![alt text](placeholder)
+    ![app screenshot](./public/images/first_screenshot.png)
   
  ## License:
   Licensed under the MIT license.

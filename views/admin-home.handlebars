@@ -30,6 +30,7 @@
     {{#each teams as |team|}}
     <li>
       {{> team-info team}}
+      <p>This team's ID is {{team.id}}</p>
       <a href="/adminHome/edit/{{team.id}}" class="edit-link">Edit Team</a>
     </li>
     {{/each}}
