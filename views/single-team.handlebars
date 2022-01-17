@@ -1,0 +1,21 @@
+{{> team-info team}}
+
+{{#if loggedInAdmin}}
+<form class="task-form">
+    <div>
+        <textarea name="task-text"></textarea>
+    </div>
+
+    <div>
+        <button type="submit" id="add-task-btn">add task</button>
+        <button type="button" id="add-point-btn">award point</button>
+    </div>
+</form>
+{{/if}}
+
+{{> tasks team.tasks}}
+
+{{#if loggedInAdmin}}
+<script src="/javascript/task.js"></script>
+<script src="/javascript/addPoint.js"></script>
+{{/if}}

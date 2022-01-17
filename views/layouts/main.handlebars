@@ -1,0 +1,66 @@
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Task.io</title>
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+  </head>
+
+  <body>
+
+    <div class="wrapper">
+
+      <header>
+
+        <nav>
+            {{#if loggedInAdmin}}
+            <a href="/adminHome">Admin Profile</a>
+            {{/if}}
+            {{#if loggedInUser}}
+            <a href="/team/{{team_id}}">My Team</a>
+            {{/if}}
+            <a href="/">Browse All Teams</a>
+            {{#if loggedInUser}}
+            <button id="user-logout">Logout</button>
+            {{/if}}
+            {{#if loggedInAdmin}}
+            <button id="admin-logout">Logout</button>
+            {{/if}}
+            {{#unless loggedIn}}
+            <a href="/login">Login</a>
+            {{/unless}}
+        </nav>
+      </header>
+      <div class="image-container">
+        <div class="inner-container">
+          <h1 class="welcome-text">
+            Welcome to
+            <a href="/" class="page-title">Task.io</a>
+          </h1>
+          <h2>
+
+            <a href="/login" class="page-login">Start Tasking</a>
+          </h2>
+
+        </div>
+
+      </div>
+
+      <main>
+        {{{body}}}
+      </main>
+      <footer>
+          Stay busy! :)
+      </footer>
+
+    </div>
+    {{#if loggedInAdmin}}
+    <script src="/javascript/logoutAdmin.js"></script>
+    {{/if}}
+    {{#if loggedInUser}}
+    <script src="/javascript/logoutUser.js"></script>
+    {{/if}}
+  </body>
+
+</html>

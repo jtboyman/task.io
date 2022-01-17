@@ -1,0 +1,12 @@
+<div>
+    {{#each this}}
+    <section>
+        <div>
+            {{admin.admin_name}} on {{format_date created_at}}
+        </div>
+        <div>
+            {{task_text}}
+        </div>
+    </section>
+    {{/each}}
+</div>

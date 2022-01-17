@@ -1,0 +1,89 @@
+body,
+html {
+  margin: 0;
+  height: 100%;
+}
+
+/*welcome page styling start */
+
+/*Hero image*/
+.image-container {
+  background-image: url("/images/my-hero.jpg");
+  height: 70%;
+
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+}
+
+.inner-container {
+  text-align: center;
+  position: absolute;
+  width: 100%;
+  height: auto;
+  color: black;
+  margin-top: 200px;
+}
+
+.page-title {
+  text-decoration: none;
+  color: #7e89eb;
+  font-size: 50px;
+}
+/*sign-in and up forms*/
+
+.signup-form {
+  width: 360px;
+  height: 620px;
+  margin: auto;
+  background-color: white;
+  border-radius: 3px;
+}
+
+.page-login {
+  text-decoration: none;
+  color: #7e89eb;
+}
+
+.login-form {
+  width: 360px;
+  height: 620px;
+  margin: auto;
+  background-color: white;
+  border-radius: 3px;
+}
+
+.sign-form-title {
+  text-align: center;
+  padding-top: 15px;
+}
+
+form {
+  width: 300px;
+  margin-left: 20px;
+}
+form label {
+  display: flex;
+  margin-top: 20px;
+  font-size: 18px;
+}
+
+form input {
+  width: 100%;
+  padding: 7px;
+  border: none;
+  border: 1px solid black;
+  border-radius: 6px;
+  outline: none;
+}
+
+button {
+  width: 320px;
+  height: 35px;
+  margin-top: 20px;
+  border: none;
+  background-color: #7e89eb;
+  color: white;
+  font-size: 18px;
+}

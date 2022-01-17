@@ -47,4 +47,13 @@ Team.hasMany(Task, {
     foreignKey: 'team_id'
 });
 
+// user in groups lol  
+User.belongsTo(Team, {
+    foreignKey: 'team_id'
+});
+
+Team.hasMany(User, {
+    foreignKey: 'team_id'
+});
+
 module.exports = { User, Admin, Team, Point, Task };

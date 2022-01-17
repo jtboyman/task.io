@@ -56,7 +56,16 @@ router.get('/:id', (req, res) => {
       email: req.body.email,
       password: req.body.password
     })
-    .then(dbAdminData => res.json(dbAdminData))
+    .then(dbAdminData => {
+        req.session.save(() => {
+            req.session.admin_id = dbAdminData.id;
+            req.session.admin_name = dbAdminData.admin_name;
+            req.session.loggedInAdmin = true;
+            req.session.loggedIn = true;
+
+            res.json(dbAdminData);
+        });
+    })
     .catch(err => {
       console.log(err);
       res.status(500).json(err);
@@ -81,9 +90,27 @@ router.post('/login', (req, res) => {
         res.status(400).json({ message: 'Incorrect password!' });
         return;
       }
+
+      req.session.save(()=> {
+          req.session.admin_id = dbAdminData.id;
+          req.session.admin_name = dbAdminData.admin_name;
+          req.session.loggedInAdmin = true;
+          req.session.loggedIn = true;
   
       res.json({ admin: dbAdminData, message: 'You are now logged in!' });
+      });
     });
+  });
+
+//log out of the site
+router.post("/logout", (req, res) => {
+    if (req.session.loggedInAdmin) {
+      req.session.destroy(() => {
+        res.status(204).end();
+      });
+    } else {
+      res.status(404).end();
+    }
   });
 
 // PUT /api/admins/1

@@ -1,0 +1,11 @@
+<article class="team">
+      <div class="title">
+        <a href="/team/{{id}}">{{team_name}}</a>
+        <p>{{team_description}}</p>
+      </div>
+      <div class="meta">
+        {{point_count}} {{format_plural "point" point_count}} | Team Leader: {{admin.admin_name}} | Tasking away since {{format_date created_at}}
+
+        <p>{{tasks.length}} {{format_plural "task" tasks.length}}</p>
+      </div>
+    </article>

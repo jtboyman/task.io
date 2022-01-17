@@ -1,4 +1,5 @@
 const router = require('express').Router();
+const withAdminAuth = require('../../utils/adminAuth');
 const { Task } = require('../../models');
 
 //GET all tasks
@@ -14,21 +15,23 @@ router.get('/', (req, res) => {
 
 //POST a task /api/tasks
 //expects {task_text: "do a thing", admin_id: 1, team_id: 1}
-router.post('/', (req, res) => {
-    Task.create({
-        task_text: req.body.task_text,
-        admin_id: req.body.admin_id,
-        team_id: req.body.team_id
-    })
-    .then(dbTaskData => res.json(dbTaskData))
-    .catch(err => {
-        console.log(err);
-        res.status(400).json(err);
-    });
+router.post('/', withAdminAuth, (req, res) => {
+    if (req.session) {
+        Task.create({
+            task_text: req.body.task_text,
+            admin_id: req.session.admin_id,
+            team_id: req.body.team_id
+        })
+        .then(dbTaskData => res.json(dbTaskData))
+        .catch(err => {
+            console.log(err);
+            res.status(400).json(err);
+        });
+    }
 });
 
 //DELETE a task 
-router.delete('/:id', (req, res) => {
+router.delete('/:id', withAdminAuth, (req, res) => {
     Task.destroy({
         where: {
             id: req.params.id

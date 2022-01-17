@@ -35,6 +35,14 @@ User.init(
         validate: {
           len: [4]
         }
+      },
+      team_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: {
+            model: "team",
+            key: 'id'
+        }
       }
     },
     {
